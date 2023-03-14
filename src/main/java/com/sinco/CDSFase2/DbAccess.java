@@ -1,5 +1,7 @@
 package com.sinco.CDSFase2;
 
+import javafx.util.Pair;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -70,22 +72,23 @@ public class DbAccess {
         }
     }
 
-    public ArrayList<Integer> getAguaActual(String nombreEmbalse,int year){
+    public ArrayList<Pair<Integer,String>> getAguaActual(String nombreEmbalse, int year){
         String sql = "SELECT * FROM embalses WHERE EMBALSE_NOMBRE = '"+nombreEmbalse+"' AND FECHA LIKE '__/__/"+year+"'";
         //System.out.println(sql);
-        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Pair<Integer,String>> lista = new ArrayList<>();
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
             // loop through the result set
             while (rs.next()) {
-                list.add(rs.getInt("AGUA_ACTUAL"));
+                Pair<Integer,String> pair = new Pair<>(rs.getInt("AGUA_ACTUAL"),rs.getString("FECHA"));
+                lista.add(pair);
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        System.out.println(list.toString());
-        return list;
+        //System.out.println(list.toString());
+        return lista;
     }
 }
