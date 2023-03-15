@@ -68,7 +68,7 @@ public class HelloController {
                     case "Central de Aldeadávila":
                         dbData.tablaEmbalse("Aldeadávila", parseInt(TF_year.getText()));
                         break;
-                    case "Central José María Oriol":
+                    case "Central José María de Oriol":
                         dbData.tablaEmbalse("Alcántara", parseInt(TF_year.getText()));
                         break;
                     case "Central de Villarino":
@@ -86,7 +86,7 @@ public class HelloController {
                     case "Estany-Gento Sallente":
                         dbData.tablaEmbalse("Sallente", parseInt(TF_year.getText()));
                         break;
-                    case "Central de Tajo de la encantada":
+                    case "Central de Tajo de la Encantada":
                         dbData.tablaEmbalse("Guadalhorce-Guadalteba", parseInt(TF_year.getText()));
                         break;
                     case "Central de Aguayo":

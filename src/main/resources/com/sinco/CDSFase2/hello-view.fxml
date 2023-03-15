@@ -22,7 +22,7 @@
                   <MenuItem fx:id="MI_Aldeadavila" mnemonicParsing="false" onAction="#selectedAldeadavila" text="Central de Aldeadávila" />
                   <MenuItem fx:id="MI_Oriol" mnemonicParsing="false" onAction="#selectedOriol" text="Central José María de Oriol" />
                   <MenuItem fx:id="MI_Villarino" mnemonicParsing="false" onAction="#selectedVillarino" text="Central de Villarino" />
-                  <MenuItem fx:id="MI_Muela" mnemonicParsing="false" onAction="#selectedMuela" text="Central de Cotes-La Muela" />
+                  <MenuItem fx:id="MI_Muela" mnemonicParsing="false" onAction="#selectedMuela" text="Central de Cortes-La Muela" />
                   <MenuItem fx:id="MI_Saucelle" mnemonicParsing="false" onAction="#selectedSaucelle" text="Central de Saucelle" />
                   <MenuItem fx:id="MI_Cedillo" mnemonicParsing="false" onAction="#selectedCedillo" text="Cedillo" />
                   <MenuItem fx:id="MI_Sallente" mnemonicParsing="false" onAction="#selectedSallente" text="Estany-Gento Sallente" />
