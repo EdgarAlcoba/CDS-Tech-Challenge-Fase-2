@@ -1,0 +1,7 @@
+.mapaFondo {
+    -fx-background-image: url(../images/mapa.png);
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+}

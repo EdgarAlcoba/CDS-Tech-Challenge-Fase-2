@@ -1,23 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="837.0" prefWidth="1311.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
 
-    <Label fx:id="welcomeText" prefHeight="794.0" prefWidth="1228.0" style="-fx-wrap-text: true;" VBox.vgrow="ALWAYS" />
-    <Button onAction="#onHelloButtonClick" prefHeight="94.0" prefWidth="216.0" text="Hello!" />
-   <LineChart>
-     <xAxis>
-       <CategoryAxis side="BOTTOM" />
-     </xAxis>
-     <yAxis>
-       <NumberAxis side="LEFT" />
-     </yAxis>
-   </LineChart>
-</VBox>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.HelloController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="437.0" styleClass="mapaFondo" stylesheets="@estilos/estiloMapa.css" HBox.hgrow="ALWAYS" />
+      <VBox prefHeight="400.0" prefWidth="326.0" spacing="10.0" HBox.hgrow="NEVER">
+         <children>
+            <MenuButton fx:id="MB_Centrales" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="282.0" text="Centrales">
+               <items>
+                  <MenuItem fx:id="MI_Aldeadavila" mnemonicParsing="false" onAction="#selectedAldeadavila" text="Central de Aldeadávila" />
+                  <MenuItem fx:id="MI_Oriol" mnemonicParsing="false" onAction="#selectedOriol" text="Central José María de Oriol" />
+                  <MenuItem fx:id="MI_Villarino" mnemonicParsing="false" onAction="#selectedVillarino" text="Central de Villarino" />
+                  <MenuItem fx:id="MI_Muela" mnemonicParsing="false" onAction="#selectedMuela" text="Central de Cotes-La Muela" />
+                  <MenuItem fx:id="MI_Saucelle" mnemonicParsing="false" onAction="#selectedSaucelle" text="Central de Saucelle" />
+                  <MenuItem fx:id="MI_Cedillo" mnemonicParsing="false" onAction="#selectedCedillo" text="Cedillo" />
+                  <MenuItem fx:id="MI_Sallente" mnemonicParsing="false" onAction="#selectedSallente" text="Estany-Gento Sallente" />
+                  <MenuItem fx:id="MI_encantada" mnemonicParsing="false" onAction="#selectedEncantada" text="Central de Tajo de la Encantada" />
+                  <MenuItem fx:id="MI_Aguayo" mnemonicParsing="false" onAction="#selectedAguayo" text="Central de Aguayo" />
+                  <MenuItem fx:id="MI_Mequinenza" mnemonicParsing="false" onAction="#selectedMequinenza" text="Mequinenza" />
+                  <MenuItem fx:id="MI_Luna" mnemonicParsing="false" onAction="#selectedLuna" text="Mora de Luna" />
+               </items>
+               <font>
+                  <Font name="Impact" size="18.0" />
+               </font>
+            </MenuButton>
+            <Label prefHeight="18.0" prefWidth="226.0" text="  Información de la central:">
+               <font>
+                  <Font name="Impact" size="16.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="TA_Info" prefHeight="114.0" prefWidth="374.0" style="-fx-wrap-text: true;" />
+            <HBox prefHeight="27.0" prefWidth="224.0" spacing="5.0">
+               <children>
+                  <TextField fx:id="TF_year" alignment="CENTER" prefHeight="26.0" prefWidth="148.0" promptText="Año" />
+                  <Button fx:id="Btn_ObtenerDatos" mnemonicParsing="false" onAction="#obtenerDatos" prefHeight="26.0" prefWidth="150.0" text="Obtener datos" />
+               </children>
+            </HBox>
+            <Button onAction="#onHelloButtonClick" prefHeight="60.0" prefWidth="264.0" text="Hello!" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>
