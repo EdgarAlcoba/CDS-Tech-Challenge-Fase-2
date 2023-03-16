@@ -1,0 +1,42 @@
+.menu-item:focused{
+    -fx-font-size: 20;
+}
+.menu-item{
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-font-family: Impact;
+
+}
+#colorAldeadavila{
+    -fx-background-color: rgb(124, 179, 66);
+}
+#colorLuna{
+    -fx-background-color: rgb(2, 136, 209);
+}
+#colorAguayo{
+    -fx-background-color: rgb(249, 168, 37);
+}
+#colorSallente{
+    -fx-background-color: rgb(156, 39, 176);
+}
+#colorMequinenza{
+    -fx-background-color: rgb(85, 139, 47);
+}
+#colorVillarino{
+    -fx-background-color: rgb(255, 82, 82);
+}
+#colorSaucelle{
+    -fx-background-color: rgb(0, 151, 167);
+}
+#colorCedillo{
+    -fx-background-color: rgb(255, 234, 0);
+}
+#colorMuela{
+    -fx-background-color: rgb(189, 189, 189);
+}
+#colorOriol{
+    -fx-background-color: rgb(194, 24, 91);
+}
+#colorEncantada{
+    -fx-background-color: rgb(103, 58, 183);
+}
