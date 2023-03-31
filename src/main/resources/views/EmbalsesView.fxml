@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.controllers.EmbalsesController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="437.0" styleClass="mapaFondo" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" HBox.hgrow="ALWAYS" />
+      <VBox prefHeight="400.0" prefWidth="326.0" spacing="10.0" HBox.hgrow="NEVER">
+         <children>
+            <MenuButton fx:id="MB_Centrales" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="282.0" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMenuButton.css" text="Centrales">
+               <items>
+                  <MenuItem id="colorAldeadavila" fx:id="MI_Aldeadavila" mnemonicParsing="false" onAction="#selectedAldeadavila" text="Central de Aldeadávila" />
+                  <MenuItem id="colorOriol" fx:id="MI_Oriol" mnemonicParsing="false" onAction="#selectedOriol" text="Central José María de Oriol" />
+                  <MenuItem id="colorVillarino" fx:id="MI_Villarino" mnemonicParsing="false" onAction="#selectedVillarino" text="Central de Villarino" />
+                  <MenuItem id="colorMuela" fx:id="MI_Muela" mnemonicParsing="false" onAction="#selectedMuela" text="Central de Cortes-La Muela" />
+                  <MenuItem id="colorSaucelle" fx:id="MI_Saucelle" mnemonicParsing="false" onAction="#selectedSaucelle" text="Central de Saucelle" />
+                  <MenuItem id="colorCedillo" fx:id="MI_Cedillo" mnemonicParsing="false" onAction="#selectedCedillo" text="Cedillo" />
+                  <MenuItem id="colorSallente" fx:id="MI_Sallente" mnemonicParsing="false" onAction="#selectedSallente" text="Estany-Gento Sallente" />
+                  <MenuItem id="colorEncantada" fx:id="MI_encantada" mnemonicParsing="false" onAction="#selectedEncantada" text="Central de Tajo de la Encantada" />
+                  <MenuItem id="colorAguayo" fx:id="MI_Aguayo" mnemonicParsing="false" onAction="#selectedAguayo" text="Central de Aguayo" />
+                  <MenuItem id="colorMequinenza" fx:id="MI_Mequinenza" mnemonicParsing="false" onAction="#selectedMequinenza" text="Mequinenza" />
+                  <MenuItem id="colorLuna" fx:id="MI_Luna" mnemonicParsing="false" onAction="#selectedLuna" text="Mora de Luna" />
+               </items>
+               <font>
+                  <Font name="Impact" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </MenuButton>
+            <Label prefHeight="18.0" prefWidth="226.0" text="  Información de la central:">
+               <font>
+                  <Font name="Impact" size="16.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="TA_Info" prefHeight="100.0" prefWidth="286.0" style="-fx-wrap-text: true;">
+               <font>
+                  <Font name="Impact" size="14.0" />
+               </font></TextArea>
+            <HBox prefHeight="27.0" prefWidth="224.0" spacing="5.0">
+               <children>
+                  <TextField fx:id="TF_year" alignment="CENTER" prefHeight="26.0" prefWidth="148.0" promptText="Año" />
+                  <Button fx:id="Btn_ObtenerDatos" mnemonicParsing="false" onAction="#obtenerDatos" prefHeight="26.0" prefWidth="150.0" text="Obtener datos">
+                     <font>
+                        <Font name="Impact" size="11.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+            <Label prefHeight="17.0" prefWidth="298.0" text="Perfil recomendado:">
+               <font>
+                  <Font name="Impact" size="14.0" />
+               </font>
+            </Label>
+            <RadioButton mnemonicParsing="false" onAction="#setPerfilAhorrador" text="Perfil ahorrador">
+               <toggleGroup>
+                  <ToggleGroup fx:id="perfil" />
+               </toggleGroup>
+               <font>
+                  <Font name="Impact" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" onAction="#setPerfilEquilibrado" text="Perfil equilibrado" toggleGroup="$perfil">
+               <font>
+                  <Font name="Impact" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" onAction="#setPerfilProductor" text="Perfil productor" toggleGroup="$perfil">
+               <font>
+                  <Font name="Impact" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </RadioButton>
+            <Button onAction="#datosProduccion" prefHeight="20.0" prefWidth="264.0" text="Datos de producción">
+               <font>
+                  <Font name="Impact" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Glow />
+               </effect></Button>
+            <Button onAction="#iniciarSimulacion" prefHeight="20.0" prefWidth="264.0" text="Iniciar simulación">
+               <font>
+                  <Font name="Impact" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>

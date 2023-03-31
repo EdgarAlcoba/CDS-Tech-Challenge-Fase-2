@@ -1,4 +1,4 @@
-package com.sinco.CDSFase2;
+package com.sinco.CDSFase2.controllers;
 
 import javafx.util.Pair;
 

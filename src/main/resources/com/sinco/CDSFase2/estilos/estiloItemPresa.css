@@ -1,0 +1,14 @@
+.panelTurbina {
+    -fx-background-image: url(../images/turbina.png);
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+}
+.panelRayo{
+    -fx-background-image: url(../images/rayo.png);
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+}
