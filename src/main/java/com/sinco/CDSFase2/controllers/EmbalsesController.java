@@ -1,10 +1,20 @@
 package com.sinco.CDSFase2.controllers;
 
+import com.sinco.CDSFase2.OptimizationAplication;
 import com.sinco.CDSFase2.controllers.DBData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static java.lang.Integer.parseInt;
 
@@ -123,9 +133,56 @@ public class EmbalsesController {
     }
 
     @FXML
+    void information(ActionEvent event) {
+        TextArea ta = new TextArea();
+        ta.setText("Información sobre los perfiles:\n\n" +
+                    "Perfil ahorrador:\n" +
+                    "Garantiza el abastecimiento de agua durante todo el año manteniendo una producción de energía moderada.\n\n" +
+                    "Perfil equilibrado:\n" +
+                    "Prioriza la generación de energía sobre la cantidad de agua almacenada. Habrá menos margen ante una sequía, pero se garantiza el suministro de agua durante todo el año.\n\n" +
+                    "Perfil productor:\n" +
+                    "Prioriza la generación de energía por encima de todo. Tiene en cuenta la previsión de precipitaciones para aumentar la producción por encima del perfil equilibrado. Tiene el inconveniente de que si las previsiones son erróneas la disponibilidad de agua puede verse afectada.");
+
+        ta.setId("info");
+        ta.setStyle("-fx-wrap-text: true; -fx-font-size: 18; -fx-background-color: #61d4f8");
+        ta.setMaxSize(600,400);
+        Stage stage = new Stage();
+        Scene scene = new Scene(ta, 600, 400);
+        stage.setScene(scene);
+        stage.setTitle("Información sobre los perfiles");
+        try {
+            stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/sinco/CDSFase2/images/logo.png")));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        stage.show();
+    }
+
+    @FXML
     void iniciarSimulacion(ActionEvent event) {
-        SimuladorController simuladorController = new SimuladorController(tipoPerfil);
-        simuladorController.initialize(null, null);
+        if (!tipoPerfil.equals("")) {
+            try {
+                Stage stage = new Stage();
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                stage.setTitle("Simulando la producción de todas las centrales en el perfil: " + tipoPerfil);
+                stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/sinco/CDSFase2/images/logo.png")));
+                fxmlLoader.setLocation(getClass().getResource("/views/SimuladorView.fxml"));
+                Parent parent = fxmlLoader.load();
+                Scene scene = new Scene(parent, 1280, 720);
+                stage.setScene(scene);
+
+                SimuladorController simuladorController = fxmlLoader.getController();
+                simuladorController.start(tipoPerfil);
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Seleccione un perfil", ButtonType.OK);
+            alert.showAndWait();
+        }
+
     }
 
     @FXML
@@ -362,7 +419,7 @@ public class EmbalsesController {
                             data = dbData.getLatestData("Barrios de Luna");
                             break;
                     }
-                    if ((data[0] > data[1]) && (data[0] > data[2])) {
+                    if ((data[0] > data[1]) || (data[0] > data[2])) {
                         //System.out.println("Dato de este año: " + data[0] + "\nDato del año pasado: " + data[1] + "\nDato media: " + data[2]);
                         int valor = (data[1] > data[2]) ? (data[0] - data[2]) : (data[0] - data[1]);
                         Alert alert = new Alert(Alert.AlertType.INFORMATION, "La cantidad de agua que se puede consumir esta semana es: " + valor + " hm3", ButtonType.OK);

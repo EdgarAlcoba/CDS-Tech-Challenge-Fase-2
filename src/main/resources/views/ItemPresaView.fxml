@@ -9,10 +9,10 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../com/sinco/CDSFase2/estilos/estiloTurbina.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.controllers.ItemPresaController">
+<AnchorPane maxHeight="200.0" maxWidth="318.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="318.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.controllers.ItemPresaController">
    <children>
-      <Circle fx:id="turbina" fill="DODGERBLUE" layoutX="423.0" layoutY="259.0" radius="98.0" stroke="BLACK" strokeType="INSIDE" styleClass="panelTurbina" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="161.0" />
-      <StackedBarChart fx:id="tabla" layoutX="37.0" layoutY="82.0" prefHeight="297.0" prefWidth="196.0" AnchorPane.bottomAnchor="20.666666666666686" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="363.0" AnchorPane.topAnchor="82.0">
+      <Circle fx:id="turbina" fill="DODGERBLUE" layoutX="229.0" layoutY="134.0" radius="47.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="19.0" AnchorPane.leftAnchor="182.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="87.0" />
+      <StackedBarChart fx:id="tabla" layoutY="68.0" prefHeight="131.0" prefWidth="141.0" stylesheets="@../com/sinco/CDSFase2/estilos/estiloGrafica.css" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="177.0" AnchorPane.topAnchor="68.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -20,15 +20,15 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </StackedBarChart>
-      <AnchorPane layoutX="267.0" layoutY="84.0" prefHeight="67.0" prefWidth="66.0" styleClass="panelRayo" stylesheets="@../com/sinco/CDSFase2/estilos/estiloItemPresa.css" AnchorPane.bottomAnchor="248.66666666666669" AnchorPane.leftAnchor="267.0" AnchorPane.rightAnchor="267.0" AnchorPane.topAnchor="84.0" />
-      <Label fx:id="produccion" layoutX="356.0" layoutY="81.0" prefHeight="67.0" prefWidth="177.0" text="2000 MW" AnchorPane.bottomAnchor="251.66666666666669" AnchorPane.leftAnchor="356.0" AnchorPane.rightAnchor="66.66666666666666" AnchorPane.topAnchor="80.99999999999999">
+      <AnchorPane layoutX="133.0" layoutY="44.0" prefHeight="47.0" prefWidth="51.0" styleClass="panelRayo" stylesheets="@../com/sinco/CDSFase2/estilos/estiloItemPresa.css" AnchorPane.bottomAnchor="109.0" AnchorPane.leftAnchor="133.0" AnchorPane.rightAnchor="134.0" AnchorPane.topAnchor="44.0" />
+      <Label fx:id="produccion" layoutX="185.0" layoutY="25.0" prefHeight="72.0" prefWidth="171.0" text="2000 MW" AnchorPane.bottomAnchor="103.0" AnchorPane.leftAnchor="185.0" AnchorPane.rightAnchor="-38.0" AnchorPane.topAnchor="25.0">
          <font>
-            <Font name="Impact" size="44.0" />
+            <Font name="Impact" size="29.0" />
          </font>
       </Label>
-      <Label fx:id="central" layoutX="43.0" layoutY="24.0" prefHeight="47.0" prefWidth="509.0" text="Central de Tajo de la Encantdada" AnchorPane.bottomAnchor="328.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="47.666666666666686" AnchorPane.topAnchor="24.0">
+      <Label fx:id="central" layoutX="29.0" layoutY="12.0" prefHeight="26.0" prefWidth="282.0" text="Central de Tajo de la Encantada  " AnchorPane.bottomAnchor="162.0" AnchorPane.leftAnchor="29.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="12.0">
          <font>
-            <Font name="Impact" size="38.0" />
+            <Font name="Impact" size="21.0" />
          </font>
       </Label>
    </children>

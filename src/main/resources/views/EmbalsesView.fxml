@@ -11,16 +11,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.controllers.EmbalsesController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="760.0" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.controllers.EmbalsesController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="437.0" styleClass="mapaFondo" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" HBox.hgrow="ALWAYS" />
-      <VBox prefHeight="400.0" prefWidth="326.0" spacing="10.0" HBox.hgrow="NEVER">
+      <VBox prefHeight="408.0" prefWidth="409.0" styleClass="mapaFondo" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" HBox.hgrow="ALWAYS" />
+      <VBox prefHeight="419.0" prefWidth="337.0" spacing="10.0" HBox.hgrow="NEVER">
          <children>
-            <MenuButton fx:id="MB_Centrales" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="282.0" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMenuButton.css" text="Centrales">
+            <MenuButton fx:id="MB_Centrales" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="302.0" style="-fx-background-radius: 10 10 10 10;" styleClass="button" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMenuButton.css" text="Centrales">
                <items>
                   <MenuItem id="colorAldeadavila" fx:id="MI_Aldeadavila" mnemonicParsing="false" onAction="#selectedAldeadavila" text="Central de Aldeadávila" />
                   <MenuItem id="colorOriol" fx:id="MI_Oriol" mnemonicParsing="false" onAction="#selectedOriol" text="Central José María de Oriol" />
@@ -46,16 +47,21 @@
                   <Font name="Impact" size="16.0" />
                </font>
             </Label>
-            <TextArea fx:id="TA_Info" prefHeight="100.0" prefWidth="286.0" style="-fx-wrap-text: true;">
+            <TextArea fx:id="TA_Info" prefHeight="100.0" prefWidth="286.0" style="-fx-wrap-text: true; -fx-background-color: #61D4F8FF;">
                <font>
                   <Font name="Impact" size="14.0" />
                </font></TextArea>
+            <Label prefHeight="18.0" prefWidth="290.0" text="Gráfica del nivel de agua de la central">
+               <font>
+                  <Font name="Impact" size="16.0" />
+               </font>
+            </Label>
             <HBox prefHeight="27.0" prefWidth="224.0" spacing="5.0">
                <children>
-                  <TextField fx:id="TF_year" alignment="CENTER" prefHeight="26.0" prefWidth="148.0" promptText="Año" />
-                  <Button fx:id="Btn_ObtenerDatos" mnemonicParsing="false" onAction="#obtenerDatos" prefHeight="26.0" prefWidth="150.0" text="Obtener datos">
+                  <TextField fx:id="TF_year" alignment="CENTER" prefHeight="26.0" prefWidth="148.0" promptText="Año" style="-fx-border-color: #61D4F8FF; -fx-background-radius: 10 10 10 10; -fx-border-radius: 10 10 10 10;" />
+                  <Button fx:id="Btn_ObtenerDatos" mnemonicParsing="false" onAction="#obtenerDatos" prefHeight="26.0" prefWidth="150.0" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" text="Obtener gráfica">
                      <font>
-                        <Font name="Impact" size="11.0" />
+                        <Font name="Impact" size="14.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -63,39 +69,58 @@
                   </Button>
                </children>
             </HBox>
-            <Label prefHeight="17.0" prefWidth="298.0" text="Perfil recomendado:">
+            <Label prefHeight="17.0" prefWidth="298.0" text="Perfil de consumo  de agua">
                <font>
-                  <Font name="Impact" size="14.0" />
+                  <Font name="Impact" size="16.0" />
                </font>
             </Label>
-            <RadioButton mnemonicParsing="false" onAction="#setPerfilAhorrador" text="Perfil ahorrador">
-               <toggleGroup>
-                  <ToggleGroup fx:id="perfil" />
-               </toggleGroup>
-               <font>
-                  <Font name="Impact" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </RadioButton>
-            <RadioButton mnemonicParsing="false" onAction="#setPerfilEquilibrado" text="Perfil equilibrado" toggleGroup="$perfil">
-               <font>
-                  <Font name="Impact" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </RadioButton>
-            <RadioButton mnemonicParsing="false" onAction="#setPerfilProductor" text="Perfil productor" toggleGroup="$perfil">
-               <font>
-                  <Font name="Impact" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </RadioButton>
-            <Button onAction="#datosProduccion" prefHeight="20.0" prefWidth="264.0" text="Datos de producción">
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="92.0" prefWidth="286.0">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="74.0" prefWidth="118.0" spacing="10.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" onAction="#setPerfilAhorrador" text="Perfil ahorrador">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="perfil" />
+                           </toggleGroup>
+                           <font>
+                              <Font name="Impact" size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" onAction="#setPerfilEquilibrado" text="Perfil equilibrado" toggleGroup="$perfil">
+                           <font>
+                              <Font name="Impact" size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" onAction="#setPerfilProductor" text="Perfil productor" toggleGroup="$perfil">
+                           <font>
+                              <Font name="Impact" size="13.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </RadioButton>
+                     </children>
+                  </VBox>
+                  <AnchorPane id="llave" prefHeight="74.0" prefWidth="19.0" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" />
+                  <AnchorPane prefHeight="74.0" prefWidth="10.0" />
+                  <Button mnemonicParsing="false" onAction="#information" prefHeight="27.0" prefWidth="138.0" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" text="Información">
+                     <font>
+                        <Font name="Impact" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <AnchorPane prefHeight="74.0" prefWidth="10.0" />
+               </children>
+            </HBox>
+            <Button onAction="#datosProduccion" prefHeight="27.0" prefWidth="296.0" style="-fx-background-radius: 10 10 10 10;" text="Cantidad de agua utilizable">
                <font>
                   <Font name="Impact" size="14.0" />
                </font>
@@ -105,7 +130,7 @@
                <effect>
                   <Glow />
                </effect></Button>
-            <Button onAction="#iniciarSimulacion" prefHeight="20.0" prefWidth="264.0" text="Iniciar simulación">
+            <Button onAction="#iniciarSimulacion" prefHeight="27.0" prefWidth="305.0" style="-fx-background-radius: 10 10 10 10;" text="Iniciar simulación (todas las centrales)">
                <font>
                   <Font name="Impact" size="14.0" />
                </font>
