@@ -12,6 +12,7 @@ public class DbAccess {
     public DbAccess() {
         dbPath = "C:/Users/edgar/IdeaProjects/CDS-Tech-Challenge-Fase-2/src/main/resources/EmbalsesDB.sqlite3";
     }
+
     /*
     public void initDB(String host, String user, String pass, String dbName) {
         DriverManager.getConnection("jdbc:mysql://" + host + "/" + dbName, user, pass);
@@ -40,7 +41,7 @@ public class DbAccess {
         String url = dbPath;
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection("jdbc:sqlite:"+url);
+            conn = DriverManager.getConnection("jdbc:sqlite:" + url);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -51,16 +52,16 @@ public class DbAccess {
     /**
      * select all rows in the warehouses table
      */
-    public void selectAll(){
+    public void selectAll() {
         String sql = "SELECT AMBITO_NOMBRE,EMBALSE_NOMBRE,FECHA,AGUA_TOTAL,AGUA_ACTUAL,ELECTRICO_FLAG FROM embalses  LIMIT 5";
 
         try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             // loop through the result set
             while (rs.next()) {
-                System.out.println(rs.getString("AMBITO_NOMBRE") +  "\t" +
+                System.out.println(rs.getString("AMBITO_NOMBRE") + "\t" +
                         rs.getString("EMBALSE_NOMBRE") + "\t" +
                         rs.getString("FECHA") + "\t" +
                         rs.getInt("AGUA_TOTAL") + "\t" +
@@ -72,17 +73,17 @@ public class DbAccess {
         }
     }
 
-    public ArrayList<Pair<Integer,String>> getAguaActual(String nombreEmbalse, int year){
-        String sql = "SELECT * FROM embalses WHERE EMBALSE_NOMBRE = '"+nombreEmbalse+"' AND FECHA LIKE '__/__/"+year+"'";
+    public ArrayList<Pair<Integer, String>> getAguaActual(String nombreEmbalse, int year) {
+        String sql = "SELECT * FROM embalses WHERE EMBALSE_NOMBRE = '" + nombreEmbalse + "' AND FECHA LIKE '__/__/" + year + "'";
         //System.out.println(sql);
-        ArrayList<Pair<Integer,String>> lista = new ArrayList<>();
+        ArrayList<Pair<Integer, String>> lista = new ArrayList<>();
         try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             // loop through the result set
             while (rs.next()) {
-                Pair<Integer,String> pair = new Pair<>(rs.getInt("AGUA_ACTUAL"),rs.getString("FECHA"));
+                Pair<Integer, String> pair = new Pair<>(rs.getInt("AGUA_ACTUAL"), rs.getString("FECHA"));
                 lista.add(pair);
             }
         } catch (SQLException e) {
@@ -90,5 +91,25 @@ public class DbAccess {
         }
         //System.out.println(list.toString());
         return lista;
+    }
+
+    public int getCapacidad(String nombreEmbalse) {
+        String sql = "SELECT * FROM embalses WHERE EMBALSE_NOMBRE = '" + nombreEmbalse + "'";
+        try (
+                Connection conn = this.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            if(rs.next()){
+                return rs.getInt("AGUA_TOTAL");
+            } else {
+                return -1;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Error");
+        }
+        return -1;
     }
 }

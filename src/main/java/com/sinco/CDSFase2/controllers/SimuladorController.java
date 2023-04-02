@@ -68,47 +68,47 @@ public class SimuladorController {
                 int aguaDisponible = 0;
                 switch (listaCentrales.get(i)) {
                     case "Central de Aldeadávila":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Aldeadávila"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Aldeadávila"), "Central de Aldeadávila");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 1243 : 0, aguaDisponible);
                         break;
                     case "Central José María de Oriol":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Alcántara"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Alcántara"), "Central José María de Oriol");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 957 : 0, aguaDisponible);
                         break;
                     case "Central de Villarino":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Almendra"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Almendra"), "Central de Villarino");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 857 : 0, aguaDisponible);
                         break;
                     case "Central de Cortes-La Muela":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("La Muela"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("La Muela"), "Central de Cortes-La Muela");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 630 : 0, aguaDisponible);
                         break;
                     case "Central de Saucelle":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Saucelle"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Saucelle"), "Central de Saucelle");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 520 : 0, aguaDisponible);
                         break;
                     case "Cedillo":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Cedillo"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Cedillo"), "Cedillo");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 500 : 0, aguaDisponible);
                         break;
                     case "Estany-Gento Sallente":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Sallente"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Sallente"), "Estany-Gento Sallente");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 468 : 0, aguaDisponible);
                         break;
                     case "Central de Tajo de la Encantada":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Guadalhorce-Guadalteba"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Guadalhorce-Guadalteba"), "Central de Tajo de la Encantada");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 360 : 0, aguaDisponible);
                         break;
                     case "Central de Aguayo":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Alsa - Mediajo"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Alsa - Mediajo"), "Central de Aguayo");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 360 : 0, aguaDisponible);
                         break;
                     case "Mequinenza":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Mequinenza"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Mequinenza"), "Mequinenza");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 324 : 0, aguaDisponible);
                         break;
                     case "Mora de Luna":
-                        aguaDisponible = calculaAgua(dbData.getLatestData("Barrios de Luna"));
+                        aguaDisponible = calculaAgua(dbData.getLatestData("Barrios de Luna"), "Mora de Luna");
                         itemPresaController.setData(listaCentrales.get(i), (aguaDisponible > 0) ? 80 : 0, aguaDisponible);
                         break;
                 }
@@ -129,7 +129,7 @@ public class SimuladorController {
         this.aguaUtilizable = listaAguaUtilizable;
     }
 
-    private int calculaAgua(int[] data) {
+    private int calculaAgua(int[] data, String central) {
         int exit = 0;
         switch (this.perfil) {
             case "AHORRADOR":
@@ -143,14 +143,45 @@ public class SimuladorController {
                 }
                 break;
             case "PRODUCTOR":
+                ApiAccess apiAccess = new ApiAccess();
+                String url = apiAccess.getUrl(central);
+                String apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlYWxjb2MwMEBlc3R1ZGlhbnRlcy51bmlsZW9uLmVzIiwianRpIjoiNjhiZDVhZWMtMWJjMC00NGJkLWI5NmYtODA3YTdiOGIzYTNiIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE2NzgyOTkyNzQsInVzZXJJZCI6IjY4YmQ1YWVjLTFiYzAtNDRiZC1iOTZmLTgwN2E3YjhiM2EzYiIsInJvbGUiOiIifQ.HYwpMbvqdfiQgUtbAX2EWg-lh8rmNBXyAflCt1L3V2U";
+                int precipitaciones = apiAccess.peticionApi(url, apiKey);
+                DBData dbData = new DBData();
+                int capacidadMax = dbData.getCapacidad(central);
+                if ((data[0] > data[1]) || (data[0] > data[2])) {
+                    if (precipitaciones < 80) {
+                        exit = (data[1] > data[2]) ? (data[0] - data[2]) : (data[0] - data[1]);
+                    } else {
+                        if ((data[1] > data[2])) {
+                            if (capacidadMax != -1) {
+                                if (data[2] - ((int) (capacidadMax / 100)) > 0) {
+                                    exit = (data[0] - data[2]) + ((int) (capacidadMax / 100));
+                                }
+                            } else {
+                                exit = (data[0] - data[2]);
+                            }
+                        } else {
+                            if (capacidadMax != -1) {
+                                if (data[1] - ((int) (capacidadMax / 100)) > 0) {
+                                    exit = (data[0] - data[1]) + ((int) (capacidadMax / 100));
+                                }
+                            } else {
+                                exit = (data[0] - data[1]);
+                            }
+                        }
+                    }
+                }
                 break;
+        }
+        if (exit < 0) {
+            exit = 0;
         }
         return exit;
     }
 
     @FXML
     void test(ActionEvent event) {
-        System.out.println("Funciona");
         PieChart pieChart = new PieChart();
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
         for (int i = 0; i < centrales.size(); i++) {
@@ -171,11 +202,7 @@ public class SimuladorController {
         pieChart.setStyle("-fx-background-color: BEIGE");
         Scene scene = new Scene(pieChart, 600, 400);
         stage.setScene(scene);
-        try {
-            stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/sinco/CDSFase2/images/logo.png")));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        stage.getIcons().add(new Image(SimuladorController.class.getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
         stage.setTitle("Gráfica de la producción de las centrales en el perfil: " + perfil);
         stage.show();
     }
@@ -206,5 +233,33 @@ public class SimuladorController {
                 return 80;
         }
         return -1;
+    }
+
+    private String getNombreEmbalse(String central) {
+        switch (central) {
+            case "Central de Aldeadávila":
+                return "Aldeadávila";
+            case "Central José María de Oriol":
+                return "Alcántara";
+            case "Central de Villarino":
+                return "Almendra";
+            case "Central de Cortes-La Muela":
+                return "La Muela";
+            case "Central de Saucelle":
+                return "Saucelle";
+            case "Cedillo":
+                return "Cedillo";
+            case "Estany-Gento Sallente":
+                return "Sallente";
+            case "Central de Tajo de la Encantada":
+                return "Guadalhorce-Guadalteba";
+            case "Central de Aguayo":
+                return "Alsa - Mediajo";
+            case "Mequinenza":
+                return "Mequinenza";
+            case "Mora de Luna":
+                return "Barrios de Luna";
+        }
+        return "";
     }
 }

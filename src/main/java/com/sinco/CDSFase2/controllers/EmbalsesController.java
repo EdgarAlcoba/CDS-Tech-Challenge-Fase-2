@@ -125,36 +125,24 @@ public class EmbalsesController {
     }
 
     @FXML
-    void onHelloButtonClick(ActionEvent event) {
-        /*ApiAccess apiAccess = new ApiAccess();
-        String url = "https://opendata.aemet.es/opendata/api/prediccion/especifica/playa/0406601";
-        String apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlYWxjb2MwMEBlc3R1ZGlhbnRlcy51bmlsZW9uLmVzIiwianRpIjoiNjhiZDVhZWMtMWJjMC00NGJkLWI5NmYtODA3YTdiOGIzYTNiIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE2NzgyOTkyNzQsInVzZXJJZCI6IjY4YmQ1YWVjLTFiYzAtNDRiZC1iOTZmLTgwN2E3YjhiM2EzYiIsInJvbGUiOiIifQ.HYwpMbvqdfiQgUtbAX2EWg-lh8rmNBXyAflCt1L3V2U";
-        welcomeText.setText(apiAccess.peticionApi(url,apiKey).toString());*/
-    }
-
-    @FXML
     void information(ActionEvent event) {
         TextArea ta = new TextArea();
         ta.setText("Información sobre los perfiles:\n\n" +
-                    "Perfil ahorrador:\n" +
-                    "Garantiza el abastecimiento de agua durante todo el año manteniendo una producción de energía moderada.\n\n" +
-                    "Perfil equilibrado:\n" +
-                    "Prioriza la generación de energía sobre la cantidad de agua almacenada. Habrá menos margen ante una sequía, pero se garantiza el suministro de agua durante todo el año.\n\n" +
-                    "Perfil productor:\n" +
-                    "Prioriza la generación de energía por encima de todo. Tiene en cuenta la previsión de precipitaciones para aumentar la producción por encima del perfil equilibrado. Tiene el inconveniente de que si las previsiones son erróneas la disponibilidad de agua puede verse afectada.");
+                "Perfil ahorrador:\n" +
+                "Garantiza el abastecimiento de agua durante todo el año manteniendo una producción de energía moderada.\n\n" +
+                "Perfil equilibrado:\n" +
+                "Prioriza la generación de energía sobre la cantidad de agua almacenada. Habrá menos margen ante una sequía, pero se garantiza el suministro de agua durante todo el año.\n\n" +
+                "Perfil productor:\n" +
+                "Prioriza la generación de energía por encima de todo. Tiene en cuenta la previsión de precipitaciones para aumentar la producción por encima del perfil equilibrado. Tiene el inconveniente de que si las previsiones son erróneas la disponibilidad de agua puede verse afectada.");
 
         ta.setId("info");
         ta.setStyle("-fx-wrap-text: true; -fx-font-size: 18; -fx-background-color: #61d4f8");
-        ta.setMaxSize(600,400);
+        ta.setMaxSize(600, 400);
         Stage stage = new Stage();
         Scene scene = new Scene(ta, 600, 400);
         stage.setScene(scene);
         stage.setTitle("Información sobre los perfiles");
-        try {
-            stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/sinco/CDSFase2/images/logo.png")));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        stage.getIcons().add(new Image(OptimizationAplication.class.getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
         stage.show();
     }
 
@@ -165,7 +153,7 @@ public class EmbalsesController {
                 Stage stage = new Stage();
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 stage.setTitle("Simulando la producción de todas las centrales en el perfil: " + tipoPerfil);
-                stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/sinco/CDSFase2/images/logo.png")));
+                stage.getIcons().add(new Image(EmbalsesController.class.getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
                 fxmlLoader.setLocation(getClass().getResource("/views/SimuladorView.fxml"));
                 Parent parent = fxmlLoader.load();
                 Scene scene = new Scene(parent, 1280, 720);
@@ -437,9 +425,101 @@ public class EmbalsesController {
                 }
                 break;
             case "PRODUCTOR":
-                if (true) {
+                if (!embalse.equals("")) {
+                    ApiAccess apiAccess = new ApiAccess();
+                    String url = apiAccess.getUrl(MB_Centrales.getText());
+                    String apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlYWxjb2MwMEBlc3R1ZGlhbnRlcy51bmlsZW9uLmVzIiwianRpIjoiNjhiZDVhZWMtMWJjMC00NGJkLWI5NmYtODA3YTdiOGIzYTNiIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE2NzgyOTkyNzQsInVzZXJJZCI6IjY4YmQ1YWVjLTFiYzAtNDRiZC1iOTZmLTgwN2E3YjhiM2EzYiIsInJvbGUiOiIifQ.HYwpMbvqdfiQgUtbAX2EWg-lh8rmNBXyAflCt1L3V2U";
+                    int precipitaciones = apiAccess.peticionApi(url, apiKey);
+
+                    DBData dbData = new DBData();
+                    int data[] = new int[3];
+                    int capacidadMax = -1;
+                    switch (MB_Centrales.getText()) {
+                        case "Central de Aldeadávila":
+                            data = dbData.getLatestData("Aldeadávila");
+                            capacidadMax = dbData.getCapacidad("Aldeadávila");
+                            break;
+                        case "Central José María de Oriol":
+                            data = dbData.getLatestData("Alcántara");
+                            capacidadMax = dbData.getCapacidad("Alcántara");
+                            break;
+                        case "Central de Villarino":
+                            data = dbData.getLatestData("Almendra");
+                            capacidadMax = dbData.getCapacidad("Almendra");
+                            break;
+                        case "Central de Cortes-La Muela":
+                            data = dbData.getLatestData("La Muela");
+                            capacidadMax = dbData.getCapacidad("La Muela");
+                            break;
+                        case "Central de Saucelle":
+                            data = dbData.getLatestData("Saucelle");
+                            capacidadMax = dbData.getCapacidad("Saucelle");
+                            break;
+                        case "Cedillo":
+                            data = dbData.getLatestData("Cedillo");
+                            capacidadMax = dbData.getCapacidad("Cedillo");
+                            break;
+                        case "Estany-Gento Sallente":
+                            data = dbData.getLatestData("Sallente");
+                            capacidadMax = dbData.getCapacidad("Sallente");
+                            break;
+                        case "Central de Tajo de la Encantada":
+                            data = dbData.getLatestData("Guadalhorce-Guadalteba");
+                            capacidadMax = dbData.getCapacidad("Guadalhorce-Guadalteba");
+                            break;
+                        case "Central de Aguayo":
+                            data = dbData.getLatestData("Alsa - Mediajo");
+                            capacidadMax = dbData.getCapacidad("Alsa - Mediajo");
+                            break;
+                        case "Mequinenza":
+                            data = dbData.getLatestData("Mequinenza");
+                            capacidadMax = dbData.getCapacidad("Mequinenza");
+                            break;
+                        case "Mora de Luna":
+                            data = dbData.getLatestData("Barrios de Luna");
+                            capacidadMax = dbData.getCapacidad("Barrios de Luna");
+                            break;
+                    }
+                    if ((data[0] > data[1]) || (data[0] > data[2])) {
+                        //System.out.println("Dato de este año: " + data[0] + "\nDato del año pasado: " + data[1] + "\nDato media: " + data[2]);
+                        if(precipitaciones<80) {
+                            int valor = (data[1] > data[2]) ? (data[0] - data[2]) : (data[0] - data[1]);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "La cantidad de agua que se puede consumir esta semana es: " + valor + " hm3", ButtonType.OK);
+                            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                            alert.showAndWait();
+                        } else {
+                            int valor = 0;
+                            if((data[1] > data[2])){
+                                if (capacidadMax!=-1){
+                                    if(data[2]-((int)(capacidadMax/100)) > 0){
+                                        valor = (data[0] - data[2]) + ((int)(capacidadMax/100));
+                                    }
+                                } else {
+                                    valor = (data[0] - data[2]);
+                                }
+                            } else {
+                                if(capacidadMax!=-1){
+                                    if(data[1]-((int)(capacidadMax/100)) > 0){
+                                        valor = (data[0] - data[1]) + ((int)(capacidadMax/100));
+                                    }
+                                } else {
+                                    valor = (data[0] - data[1]);
+                                }
+                            }
+                            if(valor<0){
+                                valor = 0;
+                            }
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION, "La cantidad de agua que se puede consumir esta semana es: " + valor + " hm3", ButtonType.OK);
+                            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                            alert.showAndWait();
+                        }
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.WARNING, "Perfil actual: productor\nPerfil No se puede producir porque el embalse no tiene el nivel de agua suficiente para garantizar el consumo de agua de la zona durante todo el año. \nCapacidad actual: " + data[0] + " hm3", ButtonType.OK);
+                        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                        alert.showAndWait();
+                    }
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.WARNING, "Perfil actual: productor\nNo se puede producir porque el embalse no tiene el nivel de agua suficiente para garantizar el consumo de agua de la zona durante todo el año. \nCapacidad actual: ", ButtonType.OK);
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Seleccione una central", ButtonType.OK);
                     alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                     alert.showAndWait();
                 }

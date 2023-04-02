@@ -215,4 +215,9 @@ public class DBData {
 
         return data;
     }
+
+    public int getCapacidad(String embalse){
+        DbAccess dbAccess = new DbAccess();
+        return dbAccess.getCapacidad(embalse);
+    }
 }

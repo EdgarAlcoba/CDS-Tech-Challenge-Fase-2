@@ -1,5 +1,6 @@
 package com.sinco.CDSFase2.controllers;
 
+import com.sinco.CDSFase2.OptimizationAplication;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,16 +41,12 @@ public class ItemPresaController implements Initializable {
         XYChart.Series serie = new XYChart.Series<>();
         serie.getData().add(new XYChart.Data("Cantidad utilizable: "+aguaUsable+" hm3",aguaUsable));
         tabla.getData().addAll(serie);
-        try {
-            if (aguaUsable > 0) {
-                Image image = new Image(new FileInputStream("src/main/resources/com/sinco/CDSFase2/images/turbinaAgua.png"));
-                turbina.setFill(new ImagePattern(image));
-            } else {
-                Image image = new Image(new FileInputStream("src/main/resources/com/sinco/CDSFase2/images/turbina.png"));
-                turbina.setFill(new ImagePattern(image));
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        if (aguaUsable > 0) {
+            Image image = new Image(getClass().getResourceAsStream("/com/sinco/CDSFase2/images/turbinaAgua.png"));
+            turbina.setFill(new ImagePattern(image));
+        } else {
+            Image image = new Image(getClass().getResourceAsStream("/com/sinco/CDSFase2/images/turbina.png"));
+            turbina.setFill(new ImagePattern(image));
         }
         if (aguaUsable != 0) {
             RotateTransition rt = new RotateTransition(Duration.seconds(8), this.turbina);

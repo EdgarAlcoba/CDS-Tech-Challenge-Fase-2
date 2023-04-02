@@ -25,7 +25,7 @@ public class OptimizationAplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setTitle("Hello!");
         stage.setScene(scene);
-        stage.getIcons().add(new Image(new FileInputStream("src/main/resources/com/sinco/CDSFase2/images/logo.png")));
+        stage.getIcons().add(new Image(OptimizationAplication.class.getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
         stage.setTitle("Datos embalses");
         stage.show();
     }
@@ -36,13 +36,13 @@ public class OptimizationAplication extends Application {
         }
     }
     private static boolean checkDrivers() {
-        try {
+        /*try {
             Class.forName("org.sqlite.JDBC");
             DriverManager.registerDriver(new org.sqlite.JDBC());
         } catch (ClassNotFoundException | SQLException classNotFoundException) {
             Logger.getAnonymousLogger().log(Level.SEVERE, LocalDateTime.now() + ": Could not start SQLite Drivers");
             return false;
-        }
+        }*/
         return true;
     }
 
