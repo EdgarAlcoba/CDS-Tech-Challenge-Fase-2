@@ -53,7 +53,7 @@ public class ItemPresaController implements Initializable {
             rt.setByAngle(360);
             rt.setAutoReverse(false);
             rt.setRate(3);
-            rt.setCycleCount(100);
+            rt.setCycleCount(1000);
             rt.play();
         }
     }

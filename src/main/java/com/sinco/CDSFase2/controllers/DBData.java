@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -17,6 +18,7 @@ import static java.lang.Integer.parseInt;
 public class DBData {
     public void tablaEmbalse(String embalse, int year) {
         Stage stage = new Stage();
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
         stage.setTitle("Datos del embalse " + embalse + ". Año: " + year + ".    -    Fuente: Ministerio para la Transición Ecológica, AEMET, SAIH Confederaciones");
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
