@@ -9,6 +9,8 @@ public class Pablo {
 
     public double capacidadActual;
 
+    public double quitadoEmbalse = 0;
+
     public void pruebas(){
         /*
         ApiAccess api = new ApiAccess();
@@ -140,6 +142,13 @@ public class Pablo {
     public double porcentajeEmbalse(double capacidad, JSONObject embalse){
         double capTotal = embalse.getDouble("capacidad_total");
         return ((capacidad / capTotal) * 100);
+    }
+
+    public double generarHidraulica(JSONObject central, int quitar){
+        double capMax = central.getDouble("capacidad_total");
+        double volumenQuitado = (capMax / 100) * quitar;
+        quitadoEmbalse += quitar;
+        return volumenQuitado * central.getDouble("ratio");
     }
 
     public double calcularTotal(JSONObject demanda){
