@@ -107,4 +107,19 @@ public class Pablo {
         return energia;
     }
 
+    private double generarEolica(JSONObject zonaCentral, JSONObject central){
+        double viento = zonaCentral.getDouble("VVMED");
+        double energia;
+        if(viento < 10){
+            energia = central.getDouble("baja");
+        }else if(viento > 25){
+            energia = central.getDouble("alta");
+        }else{
+            energia = central.getDouble("media");
+        }
+        return energia;
+    }
+
+
+
 }
