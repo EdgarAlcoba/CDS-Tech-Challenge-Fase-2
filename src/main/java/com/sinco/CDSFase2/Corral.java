@@ -88,8 +88,10 @@ public class Corral {
 
     }
 
-    public double[] optimizacion(double [] centralesEnUso){
+    public double[] optimizacion(double [] centralesEnUso, JSONObject listaCentrales){
         double optimizacion[] = {0,0,0,0,0,0,0,0,0,0,0};
+
+        Pablo p = new Pablo();
 
         MPSolver solver = MPSolver.createSolver("GLOP");
 
@@ -119,12 +121,34 @@ public class Corral {
         ct.setCoefficient(carbon,1);
 
         MPObjective objective = solver.objective();
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("GEO001")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo2, ((JSONObject) listaCentrales.get("GEO002")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("WAT001")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("WAT002")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("WIND001")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("WIND002")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("WIND003")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("SUN001")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("SUN002")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("SUN003")).getDouble("coste_generacion"));
+        objective.setCoefficient(geo1, ((JSONObject) listaCentrales.get("COAL001")).getDouble("coste_generacion"));
+        objective.setMinimization();
 
 
+        solver.solve();
 
+        optimizacion[0]=geo1.solutionValue();
+        optimizacion[1]=geo1.solutionValue();
+        optimizacion[2]=geo1.solutionValue();
+        optimizacion[3]=geo1.solutionValue();
+        optimizacion[4]=geo1.solutionValue();
+        optimizacion[5]=geo1.solutionValue();
+        optimizacion[6]=geo1.solutionValue();
+        optimizacion[7]=geo1.solutionValue();
+        optimizacion[8]=geo1.solutionValue();
+        optimizacion[9]=geo1.solutionValue();
+        optimizacion[10]=geo1.solutionValue();
 
-
-
-        return generacionCentrales;
+        return optimizacion;
     }
 }
