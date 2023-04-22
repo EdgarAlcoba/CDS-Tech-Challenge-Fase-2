@@ -2,14 +2,16 @@ package com.sinco.CDSFase2;
 
 import com.sinco.CDSFase2.controllers.ApiAccess;
 import org.json.JSONObject;
+import java.time.LocalTime;
 
 
 public class Pablo {
 
     public void pruebas(){
+        /*
         ApiAccess api = new ApiAccess();
-        JSONObject central = (JSONObject) api.itemData("wind","WIND003").get("WIND003");
-        System.out.println(costeProduccion(central, 5000));
+        JSONObject central = (JSONObject) api.itemData("sun","SUN001").get("SUN001");
+        */
     }
 
     private double distancia(double lat1, double lon1, double lat2, double lon2){
@@ -66,6 +68,29 @@ public class Pablo {
             score += getScoring(central, true,true,true);
         }
         return score;
+    }
+
+    private int segundosLuz(String am, String an){
+        LocalTime amanecer = LocalTime.parse(am);
+        LocalTime anochecer = LocalTime.parse(an);
+        LocalTime resultado = anochecer.minusHours(amanecer.getHour());
+        resultado = resultado.minusMinutes(amanecer.getMinute());
+        resultado = resultado.minusSeconds(amanecer.getSecond());
+        resultado = resultado.minusNanos(amanecer.getNano());
+        return resultado.getHour()*3600 + (resultado.getMinute() * 60) + resultado.getSecond() % 3600;
+    }
+
+    private double generaSolar(double radiacion, JSONObject central, String amanecer, String anochecer){
+        int segundosLuz = segundosLuz(amanecer, anochecer);
+        double energia;
+        if(radiacion < 150){
+            energia = (central.getDouble("baja") / 3600) * segundosLuz;
+        }else if( radiacion > 225){
+            energia = (central.getDouble("alta") / 3600) * segundosLuz;
+        }else{
+            energia = (central.getDouble("media") / 3600) * segundosLuz;
+        }
+        return energia;
     }
 
 }
