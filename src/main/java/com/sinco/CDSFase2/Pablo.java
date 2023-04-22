@@ -1,10 +1,18 @@
 package com.sinco.CDSFase2;
 
+import com.sinco.CDSFase2.controllers.ApiAccess;
+import org.json.JSONObject;
+
+import java.math.BigDecimal;
+
 public class Pablo {
 
     public void pruebas(){
-        System.out.print(distancia(40.8785,-4.6899,40.4168,-3.7038));
+        ApiAccess api = new ApiAccess();
+        JSONObject central = (JSONObject) api.itemData("wind","WIND003").get("WIND003");
+        System.out.println(emisiones(central, 5000));
     }
+
     private double distancia(double lat1, double lon1, double lat2, double lon2){
         double lat1rad = Math.toRadians(lat1);
         double lon1rad = Math.toRadians(lon1);
@@ -22,13 +30,13 @@ public class Pablo {
         return radioT * c;
     }
 
-    private double costeDistancia(Object central, Object zona, int poder){
-        double dist = distancia(central.latitud, central.longitud, zona.latitud,zona.longitud);
-        return dist * poder * central.coste;
+    private double costeTransporte(JSONObject central, JSONObject zona, int poder){
+        double dist = distancia((Double) central.get("Latitude"), (Double) central.get("Longitude"), (Double) zona.get("Latitude"), (Double) zona.get("Longitude"));
+        return dist * poder * (double) central.get("coste_transporte");
     }
 
-    private double emisiones(Object central, int poder){
-        return poder * central.emisiones;
+    private double emisiones(JSONObject central, int poder){
+        return poder * central.getDouble("emisiones");
     }
 
 
