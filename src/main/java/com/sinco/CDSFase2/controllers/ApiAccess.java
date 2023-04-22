@@ -3,6 +3,8 @@ package com.sinco.CDSFase2.controllers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -81,13 +83,11 @@ public class ApiAccess {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            String respuesta = "";
+            String respuesta = "error";
             if (response.isSuccessful()) {
                 respuesta = response.body().string();
-                if (response.isSuccessful()) {
-
-                }
             }
+            System.out.println(respuesta);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -212,12 +212,13 @@ public class ApiAccess {
                 respuesta = response.body().string();
                 System.out.println(respuesta);
             }
+            JSONArray jsonArray = new JSONArray(respuesta);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void itemData(String energyType, String item) {
+    public JSONObject itemData(String energyType, String item) {
         String port = "";
         switch (energyType) {
             case "locations":
@@ -239,7 +240,7 @@ public class ApiAccess {
                 port = "8086";
                 break;
             default:
-                return;
+                return null;
         }
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -253,7 +254,9 @@ public class ApiAccess {
             if (response.isSuccessful()) {
                 respuesta = response.body().string();
             }
+            JSONObject jsonObject = new JSONObject(respuesta);
             System.out.println(respuesta);
+            return jsonObject;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -4,7 +4,7 @@ module com.example.cdsfase2 {
     requires okhttp3;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
-
+    requires org.json;
 
 
     opens com.sinco.CDSFase2 to javafx.fxml;

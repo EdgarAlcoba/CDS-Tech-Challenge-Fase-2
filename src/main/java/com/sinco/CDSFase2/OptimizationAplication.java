@@ -22,16 +22,14 @@ import static java.lang.Integer.parseInt;
 public class OptimizationAplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(OptimizationAplication.class.getResource("/views/EmbalsesView.fxml"));
+        /*FXMLLoader fxmlLoader = new FXMLLoader(OptimizationAplication.class.getResource("/views/EmbalsesView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setScene(scene);
         stage.getIcons().add(new Image(OptimizationAplication.class.getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
         stage.setTitle("Green lake city");
-        stage.show();
-        ApiAccess api = new ApiAccess();
-        api.locationData();
-        api.listData("wind");
-        api.itemData("wind","WIND001");
+        stage.show();*/
+        Edgar edgar = new Edgar();
+        edgar.main();
     }
 
     public static void main(String[] args) {
