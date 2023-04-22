@@ -80,15 +80,29 @@ public class Pablo {
         return resultado.getHour()*3600 + (resultado.getMinute() * 60) + resultado.getSecond() % 3600;
     }
 
-    private double generaSolar(double radiacion, JSONObject central, String amanecer, String anochecer){
+    private double generaSolar(JSONObject zonaCentral, JSONObject central, String amanecer, String anochecer){
         int segundosLuz = segundosLuz(amanecer, anochecer);
         double energia;
+        double radiacion = zonaCentral.getDouble("RADMED");
         if(radiacion < 150){
             energia = (central.getDouble("baja") / 3600) * segundosLuz;
         }else if( radiacion > 225){
             energia = (central.getDouble("alta") / 3600) * segundosLuz;
         }else{
             energia = (central.getDouble("media") / 3600) * segundosLuz;
+        }
+        return energia;
+    }
+
+    private double generarGeo(JSONObject zonaCentral, JSONObject central){
+        double temp = zonaCentral.getDouble("TMED");
+        double energia;
+        if(temp < 10){
+            energia = central.getDouble("baja");
+        }else if(temp > 25){
+            energia = central.getDouble("alta");
+        }else{
+            energia = central.getDouble("media");
         }
         return energia;
     }
