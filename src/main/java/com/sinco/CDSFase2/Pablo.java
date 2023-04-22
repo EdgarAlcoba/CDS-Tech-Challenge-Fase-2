@@ -7,6 +7,8 @@ import java.time.LocalTime;
 
 public class Pablo {
 
+    public double capacidadActual;
+
     public void pruebas(){
         /*
         ApiAccess api = new ApiAccess();
@@ -120,7 +122,7 @@ public class Pablo {
         return energia;
     }
 
-    private double capacidadEmbalse(JSONObject zonaEmbalse,JSONObject datosEmbalses, JSONObject embalse,  double capacidadActual){
+    private double capacidadEmbalse(JSONObject zonaEmbalse,JSONObject datosEmbalses, JSONObject embalse){
         double evo = zonaEmbalse.getDouble("ETO");
         double precipitaciones = zonaEmbalse.getDouble("PREC");
         double superficie = embalse.getDouble("superficie");
@@ -135,10 +137,24 @@ public class Pablo {
         return capacidad;
     }
 
-    private String porcentajeEmbalse(double capacidad, JSONObject embalse){
+    private double porcentajeEmbalse(double capacidad, JSONObject embalse){
         double capTotal = embalse.getDouble("capacidad_total");
-        return ((capacidad / capTotal) * 100) + "%";
+        return ((capacidad / capTotal) * 100);
+    }
 
+    private double generarHidraulica(JSONObject zonaCentral, JSONObject central){
+
+    }
+
+    private double calcularTotal(JSONObject demanda){
+        double total = 0.0;
+        int tam = demanda.length();
+        Object[] keys = demanda.keySet().toArray();
+        for (int i = 0; i < tam; i++){
+            JSONObject area = (JSONObject) demanda.get(keys[i].toString());
+            total += area.getDouble("Total");
+        }
+        return total;
     }
 
 
