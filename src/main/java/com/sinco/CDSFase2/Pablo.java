@@ -120,6 +120,26 @@ public class Pablo {
         return energia;
     }
 
+    private double capacidadEmbalse(JSONObject zonaEmbalse,JSONObject datosEmbalses, JSONObject embalse,  double capacidadActual){
+        double evo = zonaEmbalse.getDouble("ETO");
+        double precipitaciones = zonaEmbalse.getDouble("PREC");
+        double superficie = embalse.getDouble("superficie");
+        double sumaPrec = (((superficie * 10000) * precipitaciones) / 1000000000);
+        double consumo = datosEmbalses.getDouble("Consumption");
+        double rios = datosEmbalses.getDouble("River contribution");
+        evo = (((evo * 24) / 1000));
+        double altura = capacidadActual / superficie;
+        altura -= evo;
+        double capacidad = altura * superficie;
+        capacidad = (capacidad + sumaPrec + rios) - consumo;
+        return capacidad;
+    }
+
+    private String porcentajeEmbalse(double capacidad, JSONObject embalse){
+        double capTotal = embalse.getDouble("capacidad_total");
+        return ((capacidad / capTotal) * 100) + "%";
+
+    }
 
 
 }
