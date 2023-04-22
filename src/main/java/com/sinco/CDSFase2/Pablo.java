@@ -144,7 +144,7 @@ public class Pablo {
         return ((capacidad / capTotal) * 100);
     }
 
-    public double generarHidraulica(JSONObject central, int quitar){
+    public double generarHidraulica(JSONObject central, double quitar){
         double capMax = central.getDouble("capacidad_total");
         double volumenQuitado = (capMax / 100) * quitar;
         quitadoEmbalse += quitar;
