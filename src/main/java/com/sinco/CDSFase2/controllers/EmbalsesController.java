@@ -159,8 +159,8 @@ public class EmbalsesController {
                 Scene scene = new Scene(parent, 1280, 720);
                 stage.setScene(scene);
 
-                SimuladorController simuladorController = fxmlLoader.getController();
-                simuladorController.start(tipoPerfil);
+                //SimuladorController simuladorController = fxmlLoader.getController();
+                //simuladorController.start(tipoPerfil);
                 stage.setResizable(false);
                 stage.show();
             } catch (IOException e) {
@@ -301,7 +301,7 @@ public class EmbalsesController {
 
     @FXML
     void datosProduccion(ActionEvent event) {
-        if (MB_Centrales.getText().equals("Centrales")) {
+        /*if (MB_Centrales.getText().equals("Centrales")) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Seleccione una central", ButtonType.OK);
             alert.showAndWait();
             return;
@@ -523,7 +523,7 @@ public class EmbalsesController {
                     alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                     alert.showAndWait();
                 }
-                break;
+                break;*/
         }
     }
-}
+//}

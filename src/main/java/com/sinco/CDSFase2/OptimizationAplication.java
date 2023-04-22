@@ -1,5 +1,6 @@
 package com.sinco.CDSFase2;
 
+import com.sinco.CDSFase2.controllers.ApiAccess;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,11 +24,14 @@ public class OptimizationAplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(OptimizationAplication.class.getResource("/views/EmbalsesView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-        stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.getIcons().add(new Image(OptimizationAplication.class.getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
-        stage.setTitle("Datos embalses");
+        stage.setTitle("Green lake city");
         stage.show();
+        ApiAccess api = new ApiAccess();
+        api.locationData();
+        api.listData("wind");
+        api.itemData("wind","WIND001");
     }
 
     public static void main(String[] args) {

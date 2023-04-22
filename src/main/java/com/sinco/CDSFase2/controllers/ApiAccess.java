@@ -7,6 +7,7 @@ import okhttp3.Response;
 import java.io.IOException;
 
 public class ApiAccess {
+    String hostIp = "172.31.98.128";
     public int peticionApi(String url, String apiKey) {
         String respuesta = "";
         //String apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlYWxjb2MwMEBlc3R1ZGlhbnRlcy51bmlsZW9uLmVzIiwianRpIjoiNjhiZDVhZWMtMWJjMC00NGJkLWI5NmYtODA3YTdiOGIzYTNiIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE2NzgyOTkyNzQsInVzZXJJZCI6IjY4YmQ1YWVjLTFiYzAtNDRiZC1iOTZmLTgwN2E3YjhiM2EzYiIsInJvbGUiOiIifQ.HYwpMbvqdfiQgUtbAX2EWg-lh8rmNBXyAflCt1L3V2U";
@@ -52,31 +53,211 @@ public class ApiAccess {
         return -1;
     }
 
-    public String getUrl(String central) {
-        switch (central) {
-            case "Central de Aldeadávila":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/37014";
-            case "Central José María de Oriol":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/10008";
-            case "Central de Villarino":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/37028";
-            case "Central de Cortes-La Muela":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/46099";
-            case "Central de Saucelle":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/37302";
-            case "Cedillo":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/10062";
-            case "Estany-Gento Sallente":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/25227";
-            case "Central de Tajo de la Encantada":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/29012";
-            case "Central de Aguayo":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/39070";
-            case "Mequinenza":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/50165";
-            case "Mora de Luna":
-                return "https://opendata.aemet.es/opendata/api/prediccion/especifica/municipio/diaria/24012";
+    public void locationData() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://"+hostIp+":8081")
+                .get()
+                .addHeader("cache-control", "no-cache")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String respuesta = "";
+            if (response.isSuccessful()) {
+                respuesta = response.body().string();
+                System.out.println(respuesta);
+            }
+        } catch (IOException e) {
+            //throw new RuntimeException(e);
         }
-        return "";
     }
+
+    public void sunData() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://"+hostIp+":8082")
+                .get()
+                .addHeader("cache-control", "no-cache")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String respuesta = "";
+            if (response.isSuccessful()) {
+                respuesta = response.body().string();
+                if (response.isSuccessful()) {
+
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void windData() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://"+hostIp+":8083")
+                .get()
+                .addHeader("cache-control", "no-cache")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String respuesta = "";
+            if (response.isSuccessful()) {
+                respuesta = response.body().string();
+                if (response.isSuccessful()) {
+
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void waterData() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://"+hostIp+":8084")
+                .get()
+                .addHeader("cache-control", "no-cache")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String respuesta = "";
+            if (response.isSuccessful()) {
+                respuesta = response.body().string();
+
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void geoData() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://"+hostIp+":8085")
+                .get()
+                .addHeader("cache-control", "no-cache")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String respuesta = "";
+            if (response.isSuccessful()) {
+                respuesta = response.body().string();
+
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void coalData() {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://"+hostIp+":8086")
+                .get()
+                .addHeader("cache-control", "no-cache")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String respuesta = "";
+            if (response.isSuccessful()) {
+                respuesta = response.body().string();
+                if (response.isSuccessful()) {
+
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void listData(String dataType) {
+        String port = "";
+        switch (dataType) {
+            case "locations":
+                port = "8081";
+                break;
+            case "sun":
+                port = "8082";
+                break;
+            case "wind":
+                port = "8083";
+                break;
+            case "water":
+                port = "8084";
+                break;
+            case "geo":
+                port = "8085";
+                break;
+            case "coal":
+                port = "8086";
+                break;
+            default:
+                return;
+        }
+        OkHttpClient client = new OkHttpClient();
+        System.out.println("http://"+hostIp+":" + port + "/list");
+        Request request = new Request.Builder()
+                .url("http://"+hostIp+":" + port + "/list")
+                .get()
+                .addHeader("cache-control", "no-cache")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String respuesta = "";
+            if (response.isSuccessful()) {
+                respuesta = response.body().string();
+                System.out.println(respuesta);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void itemData(String energyType, String item) {
+        String port = "";
+        switch (energyType) {
+            case "locations":
+                port = "8081";
+                break;
+            case "sun":
+                port = "8082";
+                break;
+            case "wind":
+                port = "8083";
+                break;
+            case "water":
+                port = "8084";
+                break;
+            case "geo":
+                port = "8085";
+                break;
+            case "coal":
+                port = "8086";
+                break;
+            default:
+                return;
+        }
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://"+hostIp+":" + port + "/item/" + item)
+                .get()
+                .addHeader("cache-control", "no-cache")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String respuesta = "";
+            if (response.isSuccessful()) {
+                respuesta = response.body().string();
+            }
+            System.out.println(respuesta);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
