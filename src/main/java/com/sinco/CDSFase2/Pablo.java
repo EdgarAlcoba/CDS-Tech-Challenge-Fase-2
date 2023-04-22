@@ -16,7 +16,7 @@ public class Pablo {
         */
     }
 
-    private double distancia(double lat1, double lon1, double lat2, double lon2){
+    public double distancia(double lat1, double lon1, double lat2, double lon2){
         double lat1rad = Math.toRadians(lat1);
         double lon1rad = Math.toRadians(lon1);
         double lat2rad = Math.toRadians(lat2);
@@ -33,20 +33,20 @@ public class Pablo {
         return radioT * c;
     }
 
-    private double costeTransporte(JSONObject central, JSONObject zona, int poder){
+    public double costeTransporte(JSONObject central, JSONObject zona, int poder){
         double dist = distancia((Double) central.get("Latitude"), (Double) central.get("Longitude"), (Double) zona.get("Latitude"), (Double) zona.get("Longitude"));
         return dist * poder * (double) central.get("coste_transporte");
     }
 
-    private double costeProduccion(JSONObject central, int poder){
+    public double costeProduccion(JSONObject central, int poder){
         return  (poder * central.getDouble("coste_generacion") / 100.0);
     }
 
-    private double emisiones(JSONObject central, int poder){
+    public double emisiones(JSONObject central, int poder){
         return poder * central.getDouble("emisiones");
     }
 
-    private double getScoring(JSONObject central, boolean servicios, boolean industrial, boolean residencial){
+    public double getScoring(JSONObject central, boolean servicios, boolean industrial, boolean residencial){
         double penInd = central.getDouble("penalizacion_industrial");
         double penSer = central.getDouble("penalizacion_servicios");
         double penRes = central.getDouble("penalizacion_residencial");
@@ -63,7 +63,7 @@ public class Pablo {
         return total;
     }
 
-    private double getScoringTotal(JSONObject[] listaCentral){
+    public double getScoringTotal(JSONObject[] listaCentral){
         double score = 0.0;
         //TODO calcular a que sectores abastece cada central
         for (JSONObject central : listaCentral) {
@@ -72,7 +72,7 @@ public class Pablo {
         return score;
     }
 
-    private int segundosLuz(String am, String an){
+    public int segundosLuz(String am, String an){
         LocalTime amanecer = LocalTime.parse(am);
         LocalTime anochecer = LocalTime.parse(an);
         LocalTime resultado = anochecer.minusHours(amanecer.getHour());
@@ -82,7 +82,7 @@ public class Pablo {
         return resultado.getHour()*3600 + (resultado.getMinute() * 60) + resultado.getSecond() % 3600;
     }
 
-    private double generaSolar(JSONObject zonaCentral, JSONObject central, String amanecer, String anochecer){
+    public double generaSolar(JSONObject zonaCentral, JSONObject central, String amanecer, String anochecer){
         int segundosLuz = segundosLuz(amanecer, anochecer);
         double energia;
         double radiacion = zonaCentral.getDouble("RADMED");
@@ -96,7 +96,7 @@ public class Pablo {
         return energia;
     }
 
-    private double generarGeo(JSONObject zonaCentral, JSONObject central){
+    public double generarGeo(JSONObject zonaCentral, JSONObject central){
         double temp = zonaCentral.getDouble("TMED");
         double energia;
         if(temp < 10){
@@ -109,7 +109,7 @@ public class Pablo {
         return energia;
     }
 
-    private double generarEolica(JSONObject zonaCentral, JSONObject central){
+    public double generarEolica(JSONObject zonaCentral, JSONObject central){
         double viento = zonaCentral.getDouble("VVMED");
         double energia;
         if(viento < 10){
@@ -122,7 +122,7 @@ public class Pablo {
         return energia;
     }
 
-    private double capacidadEmbalse(JSONObject zonaEmbalse,JSONObject datosEmbalses, JSONObject embalse){
+    public double capacidadEmbalse(JSONObject zonaEmbalse,JSONObject datosEmbalses, JSONObject embalse){
         double evo = zonaEmbalse.getDouble("ETO");
         double precipitaciones = zonaEmbalse.getDouble("PREC");
         double superficie = embalse.getDouble("superficie");
@@ -137,12 +137,12 @@ public class Pablo {
         return capacidad;
     }
 
-    private double porcentajeEmbalse(double capacidad, JSONObject embalse){
+    public double porcentajeEmbalse(double capacidad, JSONObject embalse){
         double capTotal = embalse.getDouble("capacidad_total");
         return ((capacidad / capTotal) * 100);
     }
 
-    private double calcularTotal(JSONObject demanda){
+    public double calcularTotal(JSONObject demanda){
         double total = 0.0;
         int tam = demanda.length();
         Object[] keys = demanda.keySet().toArray();
