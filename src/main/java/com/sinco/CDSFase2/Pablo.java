@@ -142,10 +142,6 @@ public class Pablo {
         return ((capacidad / capTotal) * 100);
     }
 
-    private double generarHidraulica(JSONObject zonaCentral, JSONObject central){
-
-    }
-
     private double calcularTotal(JSONObject demanda){
         double total = 0.0;
         int tam = demanda.length();
