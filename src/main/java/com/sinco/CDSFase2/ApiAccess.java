@@ -1,4 +1,4 @@
-package com.sinco.CDSFase2.controllers;
+package com.sinco.CDSFase2;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class ApiAccess {
-    String hostIp = "172.31.98.128";
+    String hostIp = "localhost";
     public int peticionApi(String url, String apiKey) {
         String respuesta = "";
         //String apiKey = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlYWxjb2MwMEBlc3R1ZGlhbnRlcy51bmlsZW9uLmVzIiwianRpIjoiNjhiZDVhZWMtMWJjMC00NGJkLWI5NmYtODA3YTdiOGIzYTNiIiwiaXNzIjoiQUVNRVQiLCJpYXQiOjE2NzgyOTkyNzQsInVzZXJJZCI6IjY4YmQ1YWVjLTFiYzAtNDRiZC1iOTZmLTgwN2E3YjhiM2EzYiIsInJvbGUiOiIifQ.HYwpMbvqdfiQgUtbAX2EWg-lh8rmNBXyAflCt1L3V2U";
@@ -174,7 +174,7 @@ public class ApiAccess {
         }
     }
 
-    public void listData(String dataType) {
+    public JSONArray listData(String dataType) {
         String port = "";
         switch (dataType) {
             case "locations":
@@ -196,10 +196,9 @@ public class ApiAccess {
                 port = "8086";
                 break;
             default:
-                return;
+                return null;
         }
         OkHttpClient client = new OkHttpClient();
-        System.out.println("http://"+hostIp+":" + port + "/list");
         Request request = new Request.Builder()
                 .url("http://"+hostIp+":" + port + "/list")
                 .get()
@@ -210,9 +209,9 @@ public class ApiAccess {
             String respuesta = "";
             if (response.isSuccessful()) {
                 respuesta = response.body().string();
-                System.out.println(respuesta);
             }
             JSONArray jsonArray = new JSONArray(respuesta);
+            return  jsonArray;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -261,6 +260,7 @@ public class ApiAccess {
             throw new RuntimeException(e);
         }
     }
+
 
 
 }

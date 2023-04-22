@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="760.0" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.controllers.EmbalsesController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="760.0" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.controllers.EmbalsesController">
    <children>
       <VBox prefHeight="408.0" prefWidth="409.0" styleClass="mapaFondo" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" HBox.hgrow="ALWAYS" />
       <VBox prefHeight="419.0" prefWidth="337.0" spacing="10.0" HBox.hgrow="NEVER">
@@ -33,20 +39,30 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </MenuButton>
-            <Label prefHeight="18.0" prefWidth="226.0" text="  Información de la central:">
-               <font>
-                  <Font name="Impact" size="16.0" />
-               </font>
-            </Label>
+            <HBox prefHeight="26.0" prefWidth="297.0">
+               <children>
+                  <Label prefHeight="34.0" prefWidth="132.0" text="Fecha inicio">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <DatePicker prefHeight="35.0" prefWidth="170.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="18.0" prefWidth="297.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="136.0" text="Fecha fin">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <DatePicker prefHeight="34.0" prefWidth="172.0" />
+               </children>
+            </HBox>
             <TextArea fx:id="TA_Info" prefHeight="100.0" prefWidth="286.0" style="-fx-wrap-text: true; -fx-background-color: #61D4F8FF;">
                <font>
                   <Font name="Impact" size="14.0" />
                </font></TextArea>
-            <Label prefHeight="18.0" prefWidth="290.0" text="Gráfica del nivel de agua de la central">
-               <font>
-                  <Font name="Impact" size="16.0" />
-               </font>
-            </Label>
             <HBox prefHeight="27.0" prefWidth="224.0" spacing="5.0">
                <children>
                   <TextField fx:id="TF_year" alignment="CENTER" prefHeight="26.0" prefWidth="148.0" promptText="Año" style="-fx-border-color: #61D4F8FF; -fx-background-radius: 10 10 10 10; -fx-border-radius: 10 10 10 10;" />
@@ -60,78 +76,6 @@
                   </Button>
                </children>
             </HBox>
-            <Label prefHeight="17.0" prefWidth="298.0" text="Perfil de consumo  de agua">
-               <font>
-                  <Font name="Impact" size="16.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="92.0" prefWidth="286.0">
-               <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="132.0" spacing="10.0">
-                     <children>
-                        <RadioButton mnemonicParsing="false" onAction="#setPerfilAhorrador" text="Perfil ahorrador">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="perfil" />
-                           </toggleGroup>
-                           <font>
-                              <Font name="Impact" size="13.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#setPerfilEquilibrado" text="Perfil equilibrado" toggleGroup="$perfil">
-                           <font>
-                              <Font name="Impact" size="13.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#setPerfilProductor" text="Perfil productor" toggleGroup="$perfil">
-                           <font>
-                              <Font name="Impact" size="13.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </RadioButton>
-                     </children>
-                  </VBox>
-                  <AnchorPane id="llave" prefHeight="74.0" prefWidth="19.0" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" />
-                  <AnchorPane prefHeight="74.0" prefWidth="10.0" />
-                  <Button mnemonicParsing="false" onAction="#information" prefHeight="27.0" prefWidth="138.0" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../com/sinco/CDSFase2/estilos/estiloMapa.css" text="Información">
-                     <font>
-                        <Font name="Impact" size="14.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <AnchorPane prefHeight="74.0" prefWidth="10.0" />
-               </children>
-            </HBox>
-            <Button onAction="#datosProduccion" prefHeight="27.0" prefWidth="296.0" style="-fx-background-radius: 10 10 10 10;" text="Cantidad de agua utilizable">
-               <font>
-                  <Font name="Impact" size="14.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <Glow />
-               </effect></Button>
-            <Button onAction="#iniciarSimulacion" prefHeight="27.0" prefWidth="305.0" style="-fx-background-radius: 10 10 10 10;" text="Iniciar simulación (todas las centrales)">
-               <font>
-                  <Font name="Impact" size="14.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <effect>
-                  <Glow />
-               </effect>
-            </Button>
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
