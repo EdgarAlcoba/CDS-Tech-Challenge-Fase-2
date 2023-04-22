@@ -3,14 +3,13 @@ package com.sinco.CDSFase2;
 import com.sinco.CDSFase2.controllers.ApiAccess;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
 
 public class Pablo {
 
     public void pruebas(){
         ApiAccess api = new ApiAccess();
         JSONObject central = (JSONObject) api.itemData("wind","WIND003").get("WIND003");
-        System.out.println(emisiones(central, 5000));
+        System.out.println(costeProduccion(central, 5000));
     }
 
     private double distancia(double lat1, double lon1, double lat2, double lon2){
@@ -35,10 +34,38 @@ public class Pablo {
         return dist * poder * (double) central.get("coste_transporte");
     }
 
+    private double costeProduccion(JSONObject central, int poder){
+        return  (poder * central.getDouble("coste_generacion") / 100.0);
+    }
+
     private double emisiones(JSONObject central, int poder){
         return poder * central.getDouble("emisiones");
     }
 
+    private double getScoring(JSONObject central, boolean servicios, boolean industrial, boolean residencial){
+        double penInd = central.getDouble("penalizacion_industrial");
+        double penSer = central.getDouble("penalizacion_servicios");
+        double penRes = central.getDouble("penalizacion_residencial");
+        double total = 0.0;
+        if(servicios){
+            total += penSer;
+        }
+        if(industrial) {
+            total += penInd;
+        }
+        if(residencial){
+            total += penRes;
+        }
+        return total;
+    }
 
+    private double getScoringTotal(JSONObject[] listaCentral){
+        double score = 0.0;
+        //TODO calcular a que sectores abastece cada central
+        for (JSONObject central : listaCentral) {
+            score += getScoring(central, true,true,true);
+        }
+        return score;
+    }
 
 }
