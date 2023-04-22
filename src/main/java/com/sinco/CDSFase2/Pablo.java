@@ -1,6 +1,6 @@
 package com.sinco.CDSFase2;
 
-import com.sinco.CDSFase2.controllers.ApiAccess;
+import com.sinco.CDSFase2.ApiAccess;
 import org.json.JSONObject;
 import java.time.LocalTime;
 
