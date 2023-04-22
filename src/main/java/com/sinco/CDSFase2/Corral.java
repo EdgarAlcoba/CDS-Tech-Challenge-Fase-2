@@ -18,10 +18,12 @@ public class Corral {
     public double quitadoEmbalse1;
     public double quitadoEmbalse2;
 
+    public double ETotal;
+
 
     public double[] generarElectricidad(JSONObject listaCentrales, JSONObject climatologia, JSONObject demandaEnergetica, JSONObject eventos, JSONObject datosHidraulicos){
         Pablo p = new Pablo();
-        double ETotal = p.calcularTotal(demandaEnergetica);
+        ETotal = p.calcularTotal(demandaEnergetica);
         double energia = 0;
         double[] generacionCentrales = {0,0,0,0,0,0,0,0,0,0,0};
 
@@ -84,18 +86,45 @@ public class Corral {
             }
         }
 
+    }
 
-        /*
+    public double[] optimizacion(double [] centralesEnUso){
+        double optimizacion[] = {0,0,0,0,0,0,0,0,0,0,0};
+
         MPSolver solver = MPSolver.createSolver("GLOP");
 
-        MPVariable solar1 = solver.makeNumVar(0.0, 1.0, "x");
-        MPVariable solar2 = solver.makeNumVar(0.0, 2.0, "y");
-        MPVariable solar3 = solver.makeNumVar(0.0, 2.0, "y");
-         */
+        MPVariable geo1 = solver.makeNumVar(0.0, centralesEnUso[0], "geo1");
+        MPVariable geo2 = solver.makeNumVar(0.0, centralesEnUso[1], "geo2");
+        MPVariable hid1 = solver.makeNumVar(0.0, centralesEnUso[2], "hid1");
+        MPVariable hid2 = solver.makeNumVar(0.0, centralesEnUso[3], "hid2");
+        MPVariable eo1 = solver.makeNumVar(0.0, centralesEnUso[4], "eo1");
+        MPVariable eo2 = solver.makeNumVar(0.0, centralesEnUso[5], "eo2");
+        MPVariable eo3 = solver.makeNumVar(0.0, centralesEnUso[6], "eo3");
+        MPVariable sol1 = solver.makeNumVar(0.0, centralesEnUso[7], "sol1");
+        MPVariable sol2 = solver.makeNumVar(0.0, centralesEnUso[8], "sol2");
+        MPVariable sol3 = solver.makeNumVar(0.0, centralesEnUso[9], "sol3");
+        MPVariable carbon = solver.makeNumVar(0.0, centralesEnUso[10], "carbon");
+
+        MPConstraint ct = solver.makeConstraint(ETotal, MPSolver.infinity() , "ct");
+        ct.setCoefficient(geo1,1);
+        ct.setCoefficient(geo2,1);
+        ct.setCoefficient(hid1,1);
+        ct.setCoefficient(hid2,1);
+        ct.setCoefficient(eo1,1);
+        ct.setCoefficient(eo2,1);
+        ct.setCoefficient(eo3,1);
+        ct.setCoefficient(sol1,1);
+        ct.setCoefficient(sol2,1);
+        ct.setCoefficient(sol3,1);
+        ct.setCoefficient(carbon,1);
+
+        MPObjective objective = solver.objective();
+
+
+
+
 
 
         return generacionCentrales;
-
-
     }
 }

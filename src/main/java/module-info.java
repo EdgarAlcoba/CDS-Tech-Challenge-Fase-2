@@ -5,6 +5,7 @@ module com.example.cdsfase2 {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
     requires org.json;
+    requires ortools.java;
 
 
     opens com.sinco.CDSFase2 to javafx.fxml;
