@@ -57,6 +57,7 @@ public class DashboardController implements Initializable {
     @FXML
     void btnIniciar(ActionEvent event) {
         OptimizationAlgorithm oa = new OptimizationAlgorithm();
+        oa.setInstance(this);
         ApiKafka apk = new ApiKafka();
         apk.iniciarHilo(oa);
     }

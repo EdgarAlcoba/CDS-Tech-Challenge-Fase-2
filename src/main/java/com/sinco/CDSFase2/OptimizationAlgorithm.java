@@ -4,6 +4,7 @@ import com.google.ortools.linearsolver.MPConstraint;
 import com.google.ortools.linearsolver.MPObjective;
 import com.google.ortools.linearsolver.MPSolver;
 import com.google.ortools.linearsolver.MPVariable;
+import com.sinco.CDSFase2.controllers.DashboardController;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -29,6 +30,8 @@ public class OptimizationAlgorithm {
     private double capacidadActual2;
     private double quitadoEmbalse1;
     private double quitadoEmbalse2;
+
+    private DashboardController db;
     double[] generacionCentrales = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     double[] emisiones = {0,0,0,0,0,0,0,0,0,0,0,};
     double[] coste = {0,0,0,0,0,0,0,0,0,0,0,};
@@ -65,8 +68,13 @@ public class OptimizationAlgorithm {
 
         JSONObject centralC = (JSONObject) centralCarbon.get(0);
         double emisionCarbon = ETotal * centralC.getDouble("emisiones");
+        db.setData(generacionCentrales,emisiones,coste,emisionCarbon,capacidadActual1,capacidadActual2);
 
 
+    }
+
+    public void setInstance(DashboardController db){
+        this.db = db;
     }
 
     public void iniciaCentrales() {
