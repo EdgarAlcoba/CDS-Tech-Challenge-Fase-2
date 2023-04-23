@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.controllers.DashboardController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="160.0" text="Fecha Inicio">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dpFechaInicio" prefHeight="55.0" prefWidth="205.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="160.0" text="Fecha Fin">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="dpFechaFin" prefHeight="55.0" prefWidth="205.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="523.0" prefWidth="1280.0">
+         <children>
+            <ScrollPane minWidth="300.0" prefHeight="522.0" prefWidth="300.0">
+               <content>
+                  <VBox fx:id="vbAreas" maxHeight="1.7976931348623157E308" maxWidth="295.0" minWidth="285.0" prefHeight="600.0" prefWidth="285.0" />
+               </content>
+            </ScrollPane>
+            <ScrollPane minWidth="300.0" prefHeight="522.0" prefWidth="300.0">
+               <content>
+                  <VBox fx:id="vbCentrales" maxHeight="1.7976931348623157E308" maxWidth="295.0" minWidth="285.0" prefHeight="600.0" prefWidth="285.0" />
+               </content>
+            </ScrollPane>
+            <VBox prefHeight="522.0" prefWidth="737.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="108.0" prefWidth="682.0">
+                     <children>
+                        <Label prefHeight="84.0" prefWidth="79.0">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label prefHeight="104.0" prefWidth="157.0" text="Producción">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="167.0" prefWidth="132.0" text="Emisiones">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="108.0" prefWidth="682.0">
+                     <children>
+                        <Label prefHeight="88.0" prefWidth="205.0" text="Renovables">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="lblProdReno" prefHeight="167.0" prefWidth="152.0" text="80%">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblEmiReno" prefHeight="167.0" prefWidth="194.0" text="80">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="108.0" prefWidth="682.0">
+                     <children>
+                        <Label prefHeight="88.0" prefWidth="202.0" text="Carbón">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="lblProdCoal" prefHeight="167.0" prefWidth="152.0" text="80%">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblEmiCoal" prefHeight="167.0" prefWidth="194.0" text="80">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="108.0" prefWidth="682.0">
+                     <children>
+                        <Label prefHeight="147.0" prefWidth="131.0" text="Coste:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="lblCoste" prefHeight="167.0" prefWidth="152.0" text="10000€">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="167.0" prefWidth="132.0" text="Scoring:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblScoring" prefHeight="167.0" prefWidth="194.0" text="80%">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="108.0" prefWidth="682.0">
+                     <children>
+                        <Label prefHeight="147.0" prefWidth="131.0" text="Pantano 1:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="lblPantano1" prefHeight="167.0" prefWidth="152.0" text="80%">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="167.0" prefWidth="132.0" text="Pantano 2:">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblPantano2" prefHeight="167.0" prefWidth="194.0" text="80%">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#btnIniciar" prefHeight="65.0" prefWidth="1157.0" text="Iniciar simulación">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

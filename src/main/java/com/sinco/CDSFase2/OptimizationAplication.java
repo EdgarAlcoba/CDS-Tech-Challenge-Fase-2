@@ -28,8 +28,16 @@ public class OptimizationAplication extends Application {
         stage.getIcons().add(new Image(OptimizationAplication.class.getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
         stage.setTitle("Green lake city");
         stage.show();*/
-        Edgar edgar = new Edgar();
-        edgar.main();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(OptimizationAplication.class.getResource("/views/Dashboard.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+        stage.setScene(scene);
+        stage.getIcons().add(new Image(OptimizationAplication.class.getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
+        stage.setTitle("Green lake city");
+        stage.show();
+
+        /*Edgar edgar = new Edgar();
+        edgar.main();*/
     }
 
     public static void main(String[] args) {
