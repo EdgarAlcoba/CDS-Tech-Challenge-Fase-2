@@ -254,7 +254,6 @@ public class ApiAccess {
                 respuesta = response.body().string();
             }
             JSONObject jsonObject = new JSONObject(respuesta);
-            System.out.println(respuesta);
             return jsonObject;
         } catch (IOException e) {
             throw new RuntimeException(e);

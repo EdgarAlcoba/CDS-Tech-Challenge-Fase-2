@@ -5,6 +5,7 @@ module com.example.cdsfase2 {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
     requires org.json;
+    requires kafka.clients;
     requires ortools.java;
 
 
