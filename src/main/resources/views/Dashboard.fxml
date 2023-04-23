@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sinco.CDSFase2.controllers.DashboardController">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -74,12 +73,12 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label fx:id="lblProdReno" prefHeight="167.0" prefWidth="152.0" text="80%">
+                        <Label fx:id="lblProdReno" prefHeight="167.0" prefWidth="152.0" text="0%">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblEmiReno" prefHeight="167.0" prefWidth="194.0" text="80">
+                        <Label fx:id="lblEmiReno" prefHeight="167.0" prefWidth="194.0" text="0">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -96,12 +95,12 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label fx:id="lblProdCoal" prefHeight="167.0" prefWidth="152.0" text="80%">
+                        <Label fx:id="lblProdCoal" prefHeight="167.0" prefWidth="152.0" text="0%">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblEmiCoal" prefHeight="167.0" prefWidth="194.0" text="80">
+                        <Label fx:id="lblEmiCoal" prefHeight="167.0" prefWidth="194.0" text="0">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -118,7 +117,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label fx:id="lblCoste" prefHeight="167.0" prefWidth="152.0" text="10000€">
+                        <Label fx:id="lblCoste" prefHeight="167.0" prefWidth="152.0" text="0">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -128,7 +127,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblScoring" prefHeight="167.0" prefWidth="194.0" text="80%">
+                        <Label fx:id="lblScoring" prefHeight="167.0" prefWidth="194.0" text="0">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -145,7 +144,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </Label>
-                        <Label fx:id="lblPantano1" prefHeight="167.0" prefWidth="152.0" text="80%">
+                        <Label fx:id="lblPantano1" prefHeight="167.0" prefWidth="152.0" text="0">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -155,7 +154,7 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblPantano2" prefHeight="167.0" prefWidth="194.0" text="80%">
+                        <Label fx:id="lblPantano2" prefHeight="167.0" prefWidth="194.0" text="0">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>

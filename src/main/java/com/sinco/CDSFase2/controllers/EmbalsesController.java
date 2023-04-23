@@ -1,7 +1,6 @@
 package com.sinco.CDSFase2.controllers;
 
 import com.sinco.CDSFase2.OptimizationAplication;
-import com.sinco.CDSFase2.controllers.DBData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,11 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static java.lang.Integer.parseInt;
@@ -67,62 +63,6 @@ public class EmbalsesController {
 
     private String tipoPerfil = "";
     private String embalse = "";
-
-    @FXML
-    void obtenerDatos(ActionEvent event) {
-        if (MB_Centrales.getText().equals("Centrales")) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Seleccione una central", ButtonType.OK);
-            alert.showAndWait();
-            return;
-        }
-        try {
-            int year = parseInt(TF_year.getText());
-            if (year > 2004 && year <= 2023) {
-                DBData dbData = new DBData();
-                switch (MB_Centrales.getText()) {
-                    case "Central de Aldeadávila":
-                        dbData.tablaEmbalse("Aldeadávila", parseInt(TF_year.getText()));
-                        break;
-                    case "Central José María de Oriol":
-                        dbData.tablaEmbalse("Alcántara", parseInt(TF_year.getText()));
-                        break;
-                    case "Central de Villarino":
-                        dbData.tablaEmbalse("Almendra", parseInt(TF_year.getText()));
-                        break;
-                    case "Central de Cortes-La Muela":
-                        dbData.tablaEmbalse("La Muela", parseInt(TF_year.getText()));
-                        break;
-                    case "Central de Saucelle":
-                        dbData.tablaEmbalse("Saucelle", parseInt(TF_year.getText()));
-                        break;
-                    case "Cedillo":
-                        dbData.tablaEmbalse("Cedillo", parseInt(TF_year.getText()));
-                        break;
-                    case "Estany-Gento Sallente":
-                        dbData.tablaEmbalse("Sallente", parseInt(TF_year.getText()));
-                        break;
-                    case "Central de Tajo de la Encantada":
-                        dbData.tablaEmbalse("Guadalhorce-Guadalteba", parseInt(TF_year.getText()));
-                        break;
-                    case "Central de Aguayo":
-                        dbData.tablaEmbalse("Alsa - Mediajo", parseInt(TF_year.getText()));
-                        break;
-                    case "Mequinenza":
-                        dbData.tablaEmbalse("Mequinenza", parseInt(TF_year.getText()));
-                        break;
-                    case "Mora de Luna":
-                        dbData.tablaEmbalse("Barrios de Luna", parseInt(TF_year.getText()));
-                        break;
-                }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING, "Introduzca un año mayor a 2005", ButtonType.OK);
-                alert.showAndWait();
-            }
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING, "Introduzca un año mayor a 2005", ButtonType.OK);
-            alert.showAndWait();
-        }
-    }
 
     @FXML
     void information(ActionEvent event) {

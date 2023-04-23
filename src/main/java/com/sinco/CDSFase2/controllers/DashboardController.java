@@ -1,5 +1,8 @@
 package com.sinco.CDSFase2.controllers;
 
+import com.sinco.CDSFase2.ApiKafka;
+import com.sinco.CDSFase2.OptimizationAlgorithm;
+import com.sinco.CDSFase2.OptimizationAplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -53,7 +56,9 @@ public class DashboardController implements Initializable {
 
     @FXML
     void btnIniciar(ActionEvent event) {
-
+        OptimizationAlgorithm oa = new OptimizationAlgorithm();
+        ApiKafka apk = new ApiKafka();
+        apk.iniciarHilo(oa);
     }
 
 

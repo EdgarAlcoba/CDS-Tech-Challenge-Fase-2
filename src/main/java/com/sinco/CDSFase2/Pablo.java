@@ -74,29 +74,7 @@ public class Pablo {
         return score;
     }
 
-    public int segundosLuz(String am, String an){
-        LocalTime amanecer = LocalTime.parse(am);
-        LocalTime anochecer = LocalTime.parse(an);
-        LocalTime resultado = anochecer.minusHours(amanecer.getHour());
-        resultado = resultado.minusMinutes(amanecer.getMinute());
-        resultado = resultado.minusSeconds(amanecer.getSecond());
-        resultado = resultado.minusNanos(amanecer.getNano());
-        return resultado.getHour()*3600 + (resultado.getMinute() * 60) + resultado.getSecond() % 3600;
-    }
 
-    public double generaSolar(JSONObject zonaCentral, JSONObject central, String amanecer, String anochecer){
-        int segundosLuz = segundosLuz(amanecer, anochecer);
-        double energia;
-        double radiacion = zonaCentral.getDouble("RADMED");
-        if(radiacion < 150){
-            energia = (central.getDouble("baja") / 3600) * segundosLuz;
-        }else if( radiacion > 225){
-            energia = (central.getDouble("alta") / 3600) * segundosLuz;
-        }else{
-            energia = (central.getDouble("media") / 3600) * segundosLuz;
-        }
-        return energia;
-    }
 
     public double generarGeo(JSONObject zonaCentral, JSONObject central){
         double temp = zonaCentral.getDouble("TMED");

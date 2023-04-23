@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import org.json.JSONArray;
 
 import java.io.FileInputStream;
 import java.net.URL;
@@ -29,31 +30,30 @@ public class OptimizationAplication extends Application {
         stage.setTitle("Green lake city");
         stage.show();*/
 
+        ApiAccess api = new ApiAccess();
+        System.out.println(api.getCentrales());
+
         FXMLLoader fxmlLoader = new FXMLLoader(OptimizationAplication.class.getResource("/views/Dashboard.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setScene(scene);
         stage.getIcons().add(new Image(OptimizationAplication.class.getResourceAsStream("/com/sinco/CDSFase2/images/logo.png")));
         stage.setTitle("Green lake city");
         stage.show();
-
+/*
+        OptimizationAlgorithm oa = new OptimizationAlgorithm();
+        ApiKafka apiKafka = new ApiKafka();
+        apiKafka.setAlgorithm(oa);
+        apiKafka.getKafkaAlgo();
+        ApiAccess api = new ApiAccess();
+        JSONArray listaCentrales = api.listData("geo");
+        System.out.println(api.itemData("geo",listaCentrales.getString(0)));*/
         /*Edgar edgar = new Edgar();
         edgar.main();*/
     }
 
     public static void main(String[] args) {
-        if(checkDrivers()){
-            launch();
-        }
+        launch();
     }
-    private static boolean checkDrivers() {
-        /*try {
-            Class.forName("org.sqlite.JDBC");
-            DriverManager.registerDriver(new org.sqlite.JDBC());
-        } catch (ClassNotFoundException | SQLException classNotFoundException) {
-            Logger.getAnonymousLogger().log(Level.SEVERE, LocalDateTime.now() + ": Could not start SQLite Drivers");
-            return false;
-        }*/
-        return true;
-    }
+
 
 }
