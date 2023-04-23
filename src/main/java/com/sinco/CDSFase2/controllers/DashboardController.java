@@ -2,7 +2,6 @@ package com.sinco.CDSFase2.controllers;
 
 import com.sinco.CDSFase2.ApiKafka;
 import com.sinco.CDSFase2.OptimizationAlgorithm;
-import com.sinco.CDSFase2.OptimizationAplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
@@ -54,13 +52,14 @@ public class DashboardController implements Initializable {
     @FXML
     private VBox vbCentrales;
 
+    private String nombres[] = {"GEO001", "GEO002", "WAT001", "WAT002","WIND001","WIND002","WIND003", "SUN001", "SUN002", "SUN003", "COAL001"};
+
     @FXML
     void btnIniciar(ActionEvent event) {
         OptimizationAlgorithm oa = new OptimizationAlgorithm();
         ApiKafka apk = new ApiKafka();
         apk.iniciarHilo(oa);
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -80,10 +79,49 @@ public class DashboardController implements Initializable {
                 HBox hb = fxmlLoader.load();
                 vbCentrales.getChildren().add(hb);
                 CentralController cc = fxmlLoader.getController();
-                cc.setData("Central "+ (i+1),"SI");
+                cc.setData(nombres[i],"NO");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setData(double[] optimizacion, double[] emisiones, double[] costes, double emisionC, double porPant1, double porPant2){
+        vbCentrales.getChildren().clear();
+        for (int i = 0; i < 11; i++) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/views/CentralItem.fxml"));
+                HBox hb = fxmlLoader.load();
+                vbCentrales.getChildren().add(hb);
+                CentralController cc = fxmlLoader.getController();
+                if(optimizacion[i] != 0.0){
+                    cc.setData(nombres[i],"SI");
+                }else{
+                    cc.setData(nombres[i],"NO");
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        double costeTotal = 0.0;
+        for ( double coste: costes) {
+            costeTotal +=  coste;
+        }
+        double emisionVerde = 0.0;
+        for(int i = 0; i < 10; i++){
+            emisionVerde += emisiones[i];
+        }
+        double produccionVerde = 0.0;
+        for(int i = 0; i < 10; i++){
+            produccionVerde += optimizacion[i];
+        }
+        this.lblCoste.setText(costeTotal + " €");
+        this.lblEmiReno.setText(emisionVerde + " T");
+        this.lblEmiCoal.setText(emisionC + " T");
+        this.lblProdReno.setText(produccionVerde + " MWH");
+        this.lblProdCoal.setText(optimizacion[10] + " MWh");
+        this.lblPantano1.setText(porPant1 + " %");
+        this.lblPantano2.setText(porPant2 + " %");
     }
 }

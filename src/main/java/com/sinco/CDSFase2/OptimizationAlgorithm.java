@@ -15,7 +15,6 @@ public class OptimizationAlgorithm {
     JSONObject events = new JSONObject();
     JSONObject hydrodata1 = new JSONObject();
     JSONObject hydrodata2 = new JSONObject();
-    JSONObject weather = new JSONObject();
     private JSONArray ubicaciones;
     private JSONArray centralesSolares;
     private JSONArray centralesEolicas;
@@ -31,18 +30,42 @@ public class OptimizationAlgorithm {
     private double quitadoEmbalse1;
     private double quitadoEmbalse2;
     double[] generacionCentrales = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    double[] emisiones = {0,0,0,0,0,0,0,0,0,0,0,};
+    double[] coste = {0,0,0,0,0,0,0,0,0,0,0,};
 
     public void iniciar(JSONObject climatology, JSONObject demand) {
         iniciaCentrales();
         generarElectricidad(climatology, demand);
-        for(int i = 0; i < generacionCentrales.length; i++){
+        for(int i = 0; i < 11; i++){
             System.out.println(generacionCentrales[i]);
         }
-        System.out.print("\n");
-        double[] optimizacion = optimizacion(generacionCentrales);
-        for(int i = 0; i < optimizacion.length; i++){
-            System.out.println(optimizacion[i]);
-        }
+        emisiones[0] = emisiones((JSONObject) centralesGeotermicas.get(0), generacionCentrales[0]);
+        emisiones[1] = emisiones((JSONObject) centralesGeotermicas.get(1),generacionCentrales[1]);
+        emisiones[2] = emisiones((JSONObject) centralesHidraulicas.get(0),generacionCentrales[2]);
+        emisiones[3] = emisiones((JSONObject) centralesHidraulicas.get(1),generacionCentrales[3]);
+        emisiones[4] = emisiones((JSONObject) centralesEolicas.get(0),generacionCentrales[4]);
+        emisiones[5] = emisiones((JSONObject) centralesEolicas.get(1),generacionCentrales[5]);
+        emisiones[6] = emisiones((JSONObject) centralesEolicas.get(2),generacionCentrales[6]);
+        emisiones[7] = emisiones((JSONObject) centralesSolares.get(0),generacionCentrales[7]);
+        emisiones[8] = emisiones((JSONObject) centralesSolares.get(1),generacionCentrales[8]);
+        emisiones[9] = emisiones((JSONObject) centralesSolares.get(2),generacionCentrales[9]);
+        emisiones[10] = emisiones((JSONObject) centralCarbon.get(0),generacionCentrales[10]);
+
+        coste[0] = costeProduccion((JSONObject) centralesGeotermicas.get(0), generacionCentrales[0]);
+        coste[1] = costeProduccion((JSONObject) centralesGeotermicas.get(1),generacionCentrales[1]);
+        coste[2] = costeProduccion((JSONObject) centralesHidraulicas.get(0),generacionCentrales[2]);
+        coste[3] = costeProduccion((JSONObject) centralesHidraulicas.get(1),generacionCentrales[3]);
+        coste[4] = costeProduccion((JSONObject) centralesEolicas.get(0),generacionCentrales[4]);
+        coste[5] = costeProduccion((JSONObject) centralesEolicas.get(1),generacionCentrales[5]);
+        coste[6] = costeProduccion((JSONObject) centralesEolicas.get(2),generacionCentrales[6]);
+        coste[7] = costeProduccion((JSONObject) centralesSolares.get(0),generacionCentrales[7]);
+        coste[8] = costeProduccion((JSONObject) centralesSolares.get(1),generacionCentrales[8]);
+        coste[9] = costeProduccion((JSONObject) centralesSolares.get(2),generacionCentrales[9]);
+        coste[10] = costeProduccion((JSONObject) centralCarbon.get(0),generacionCentrales[10]);
+
+        JSONObject centralC = (JSONObject) centralCarbon.get(0);
+        double emisionCarbon = ETotal * centralC.getDouble("emisiones");
+
 
     }
 
@@ -56,6 +79,7 @@ public class OptimizationAlgorithm {
         centralCarbon = api.listData("coal");
         listaCentrales = api.getCentrales();
     }
+
 
     public void setClimatology(JSONObject climatology) {
         this.climatology = climatology;
@@ -77,9 +101,6 @@ public class OptimizationAlgorithm {
         this.hydrodata2 = hydrodata2;
     }
 
-    public void setWeather(JSONObject weather) {
-        this.weather = weather;
-    }
 
 
     public void consultarListas() {
@@ -120,7 +141,7 @@ public class OptimizationAlgorithm {
      * @param poder
      * @return
      */
-    private double costeTransporte(JSONObject central, JSONObject zona, int poder) {
+    private double costeTransporte(JSONObject central, JSONObject zona, double poder) {
         double dist = distancia((Double) central.get("Latitude"), (Double) central.get("Longitude"), (Double) zona.get("Latitude"), (Double) zona.get("Longitude"));
         return dist * poder * (double) central.get("coste_transporte");
     }
@@ -132,7 +153,7 @@ public class OptimizationAlgorithm {
      * @param poder
      * @return
      */
-    private double costeProduccion(JSONObject central, int poder) {
+    private double costeProduccion(JSONObject central, double poder) {
         return (poder * central.getDouble("coste_generacion") / 100.0);
     }
 
@@ -143,7 +164,7 @@ public class OptimizationAlgorithm {
      * @param poder
      * @return
      */
-    private double emisiones(JSONObject central, int poder) {
+    private double emisiones(JSONObject central, double poder) {
         return poder * central.getDouble("emisiones");
     }
 
@@ -249,6 +270,30 @@ public class OptimizationAlgorithm {
         return total;
     }
 
+    public double capacidadEmbalse(JSONObject zonaEmbalse,JSONObject datosEmbalses, JSONObject embalse, int i){
+        double evo = zonaEmbalse.getDouble("ETO");
+        double precipitaciones = zonaEmbalse.getDouble("PREC");
+        double superficie = embalse.getDouble("superficie");
+        double sumaPrec = (((superficie * 10000) * precipitaciones) / 1000000000);
+        double consumo = datosEmbalses.getDouble("Consumption");
+        double rios = datosEmbalses.getDouble("River contribution");
+        evo = (((evo * 24) / 1000));
+        double altura = 0.0;
+        if(i == 1){
+            altura = capacidadActual1 / superficie;
+        }else{
+            altura = capacidadActual2 / superficie;
+        }
+        altura -= evo;
+        double capacidad = altura * superficie;
+        capacidad = (capacidad + sumaPrec + rios) - consumo;
+        return capacidad;
+    }
+    public double porcentajeEmbalse(double capacidad, JSONObject embalse){
+        double capTotal = embalse.getDouble("capacidad_total");
+        return ((capacidad / capTotal) * 100);
+    }
+
     public double generarHidraulica(JSONObject central, double quitar, int i) {
         double capMax = central.getDouble("capacidad_total");
         double volumenQuitado = (capMax / 100) * quitar;
@@ -264,6 +309,10 @@ public class OptimizationAlgorithm {
         ApiAccess api = new ApiAccess();
         Object[] keys = clima.keySet().toArray();
         JSONObject climatology = (JSONObject) clima.get(keys[0].toString());
+        double cap1 = capacidadEmbalse((JSONObject) climatology.get("WATER001"),hydrodata1, api.itemData("water", centralesHidraulicas.getString(0)),1);
+        double cap2 = capacidadEmbalse((JSONObject) climatology.get("WATER002"),hydrodata2, api.itemData("water", centralesHidraulicas.getString(1)),2);
+        capacidadActual1 = porcentajeEmbalse(cap1,api.itemData("water", centralesHidraulicas.getString(0)));
+        capacidadActual2 = porcentajeEmbalse(cap1,api.itemData("water", centralesHidraulicas.getString(1)));
         ETotal = calcularTotal(demand);
         double energia = 0;
 
